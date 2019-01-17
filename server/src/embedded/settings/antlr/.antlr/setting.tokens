@@ -1,0 +1,14 @@
+LANGUAGE=1
+AUTOIMPORT=2
+COMPILE_ONLY=3
+EQUAL=4
+SEMI=5
+Identifier=6
+WhiteSpace=7
+SingleLineComment=8
+MultiLinesComment=9
+'language'=1
+'autoimport'=2
+'compile_only'=3
+'='=4
+';'=5

@@ -1,0 +1,161 @@
+{
+	"name": "qurator-vscode",
+	"description": "A general purpose quantum programming language.",
+	"author": "Qurator",
+	"version": "0.1.4",
+	"publisher": "Qurator",
+	"icon": "icon.png",
+	"categories": [
+		"Programming Languages",
+		"Snippets",
+		"Themes"
+	],
+	"engines": {
+		"vscode": "^1.27.0"
+	},
+	"activationEvents": [
+		"onLanguage:qrunes",
+		"onCommand:qurator-vscode.runQRunesCode",
+		"onCommand:qurator-vscode.checkDependencies"
+	],
+	"main": "./client/out/extension",
+	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "qurator configuration",
+			"properties": {
+				"qrunesLang.maxNumberOfProblems": {
+					"scope": "resource",
+					"type": "number",
+					"default": 100,
+					"description": "Controls the maximum number of problems produced by the server."
+				},
+				"qrunesLang.trace.server": {
+					"scope": "window",
+					"type": "string",
+					"enum": [
+						"off",
+						"messages",
+						"verbose"
+					],
+					"default": "off",
+					"description": "Traces the communication between VS Code and the language server."
+				},
+				"qurator-vscode.qurator.dependencies": {
+					"type": "object",
+					"default": {
+						"python": "3.6",
+						"pip": "9.0.0",
+						"g++":"1.0.0"
+					},
+					"description": "Basic Qurator dependencies required"
+				},
+				"qurator-vscode.qrunes.packages": {
+					"type": "object",
+					"default": {
+						"pyqpanda": "",
+						"antlr4-python3-runtime": ""
+					},
+					"description": "QRunes and libraries related to run code"
+				}
+			}
+		},
+		"snippets": [
+			{
+				"language": "qrunes",
+				"path": "./snippets/qrunes-snippets.json"
+			}
+		],
+		"languages": [
+			{
+				"id": "qrunes",
+				"aliases": [
+					"QRUNES"
+				],
+				"extensions": [
+					".qrunes"
+				],
+				"configuration": "./qrunes-configuration.json"
+			}
+		],
+		"themes": [
+			{
+				"label": "QRunes Dark",
+				"uiTheme": "vs-dark",
+				"path": "./themes/qrunes-dark.json"
+			},
+			{
+				"label": "QRunes Light",
+				"uiTheme": "vs",
+				"path": "./themes/qrunes-light.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "qrunes",
+				"scopeName": "source.qrunes",
+				"path": "./syntaxes/qrunes-grammars.json"
+			}
+		],
+		"commands": [
+			{
+				"command": "qurator-vscode.checkDependencies",
+				"title": "Check Qurator VSCode Extension dependencies",
+				"category": "qurator-vscode"
+			},
+			{
+				"command": "qurator-vscode.runQRunesCode",
+				"title": "▶ Run this QRunes",
+				"category": "qurator-vscode"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "qurator-vscode.runQRunesCode",
+				"key": "F5",
+				"mac": "F5",
+				"when": "editorTextFocus && editorLangId == 'qrunes'"
+			}
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"when": "editorTextFocus && editorLangId == qrunes",
+					"command": "qurator-vscode.runQRunesCode"
+				}
+			],
+			"editor/title": [
+				{
+					"when": "editorTextFocus && editorLangId == qrunes",
+					"command": "qurator-vscode.runQRunesCode",
+					"group": "navigation"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile:parser && npm run compile ",
+		"compile:client": "tsc -p ./client/tsconfig.json",
+		"compile:server": "tsc -p ./server/tsconfig.json",
+		"compile:parser": "npm run compile:parserSettings && npm run compile:parserQcodes && npm run compile:parserPython && npm run compile:parserCpp",
+		"compile:parserSettings": "cd server/src/embedded/settings/antlr && antlr4ts -visitor setting.g4 && cd ../../../..",
+		"compile:parserQcodes": "cd server/src/embedded/qcodes/antlr && antlr4ts -visitor qcode.g4 && cd ../../../..",
+		"compile:parserPython": "cd server/src/embedded/python/antlr && antlr4ts -visitor Python3.g4 && cd ../../../..",
+		"compile:parserCpp": "cd server/src/embedded/cpp/antlr && antlr4ts -visitor CPP14.g4 && cd ../../../..",
+		"watch:client": "tsc -w -p ./client/tsconfig.json",
+		"watch:server": "tsc -w -p ./server/tsconfig.json",
+		"compile": "npm run compile:client && npm run compile:server",
+		"postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
+		"test": "sh ./scripts/e2e.sh"
+	},
+	"devDependencies": {
+		"@types/mocha": "^5.2.5",
+		"@types/node": "^10.11.4",
+		"typescript": "^3.1.1",
+		"npm-run-all": "^4.1.3",
+		"antlr4ts-cli": "^0.4.0-alpha.4"
+	},
+	"dependencies": {
+		"antlr4ts": "^0.4.1-alpha.0"
+	}
+}

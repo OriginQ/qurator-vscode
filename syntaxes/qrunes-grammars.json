@@ -1,0 +1,365 @@
+{
+    "fileTypes": [ "qrunes" ],
+    "name": "QRUNES",
+    "scopeName": "source.qrunes",
+    "patterns": [
+        {
+            "name": "comment.line",
+            "match": "//.*?$"
+        },
+        {
+            "name":"comment.blockline",
+            "begin": "(?<!/)/\\*([^*/]|\\*(?!/)|/(?<!\\*))*",
+            "end": "((?=\\*/))(\\*/)"
+        },
+        {
+            "name": "settings",
+            "begin": "(\\@\\s*\\bsettings\\b\\s*\\:)",
+            "end": "\\@",
+            "captures": {
+                "0": {
+                    "name": "settings.name"
+                }
+            },
+            "patterns": [        
+                {
+                    "name": "settings.comment.line",
+                    "match": "//.*?$"
+                },
+                {
+                    "name": "settings.comment.blockline",
+                    "begin": "(?<!/)/\\*([^*/]|\\*(?!/)|/(?<!\\*))*",
+                    "end": "((?=\\*/))(\\*/)"
+                },
+                {
+                    "name": "settings.string.value",
+                    "begin": "\"",
+                    "end": "\""
+                },
+                {
+                    "name": "settings.constant.numeric",
+                    "match": "\\b[0-9]+(\\.[0-9]+)?\\b"
+                },
+                {
+                    "name": "qrunes.script.python",
+                    "begin": "\\b(language)\\b\\s*=\\s*\\bPython\\b\\s*\\;",
+                    "end": "\\@\\@\\@",
+                    "captures": {
+                        "1": {
+                            "name": "settings.keyword"
+                        }
+                    },
+                    "patterns":[
+                        {
+                            "name": "symbol",
+                            "match": "\\@"
+                        },
+                        { 
+                            "name": "qcodes",
+                            "begin": "(\\bqcodes\\b\\s*\\:)",
+                            "end": "\\@",
+                            "captures": {
+                                "0": {
+                                    "name": "qcodes.name"
+                                }
+                            },
+                            "patterns": [
+                                {
+                                    "name": "qcodes.keyword",
+                                    "match": "\\b(if|else|for|while|break|continue|let|return|qif|qelse|qwhile|var|include)\\b"
+                                },
+                                {
+                                    "name": "qcodes.type",
+                                    "match": "\\b(qvec|cvec|qubit|cbit|int|float|double)\\b"
+                                },
+                                {
+                                    "name": "qcodes.method",
+                                    "match": "\\b(len|H|X|NOTE|T|S|Y|Z|X1|Y1|Z1|U4|RX|RY|RZ|CNOT|CR|CZ|CU|iSWAP|Measure|Pi)\\b"
+                                },
+                                {
+                                    "name": "qcodes.comment.line",
+                                    "match": "//.*?$"
+                                },
+                                {
+                                    "name": "qcodes.comment.blockline",
+                                    "begin": "(?<!/)/\\*([^*/]|\\*(?!/)|/(?<!\\*))*",
+                                    "end": "((?=\\*/))(\\*/)"
+                                },
+                                {
+                                    "name": "qcodes.string.value",
+                                    "begin": "\"",
+                                    "end": "\""
+                                },
+                                {
+                                    "name": "qcodes.string.value",
+                                    "begin": "\\'",
+                                    "end": "\\'"
+                                },
+                                {
+                                    "name": "qcodes.constant.numeric",
+                                    "match": "\\b[0-9]+(\\.[0-9]+)?\\b"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "python.script",
+                            "begin": "(\\bscript\\b\\s*\\:)",
+                            "end": "\\@",
+                            "captures": {
+                                "0": {
+                                    "name": "script.name"
+                                }
+                            },
+                            "patterns": [
+                                {
+                                    "name": "python.script.keyword",
+                                    "match": "\\b(print|if|else|while|for|from|import|return|as|pass|break|continue)\\b"
+                                },
+                                {
+                                    "name": "python.script.constants",
+                                    "match": "\\b(def|in|False|True)\\b"
+                                },
+                                {
+                                    "name": "python.script.type",
+                                    "match": "\\b(int|float|bool|str|type)\\b"
+                                },
+                                {
+                                    "name": "python.script.method",
+                                    "match": "\\b(range|len|directly_run|prob_run|run_with_configuration|QProg|insert|qAlloc_many|cAlloc_many|init|finalize|quick_measure|prob_run_dict|prob_run_tuple_list|prob_run_list|PMeasure_no_index|PMeasure)\\b"
+                                },
+                                {
+                                    "name": "python.script.comment.line",
+                                    "match": "#.*?$"
+                                },
+                                {
+                                    "name":"python.script.comment.blockline",
+                                    "begin": "\\'\\'\\'",
+                                    "end": "\\'\\'\\'"
+                                },
+                                {
+                                    "name":"python.script.comment.blockline",
+                                    "begin": "\"\"\"",
+                                    "end": "\"\"\""
+                                },
+                                {
+                                    "name": "script.string.value",
+                                    "begin": "\\'",
+                                    "end": "\\'"
+                                },
+                                {
+                                    "name": "script.string.value",
+                                    "begin": "\"",
+                                    "end": "\""
+                                },
+                                {
+                                    "name": "script.constant.numeric",
+                                    "match": "\\b[0-9]+(\\.[0-9]+)?\\b"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "settings.keyword",
+                            "match": "\\b(language|autoimport|compile_only)\\b"
+                        },
+                        {
+                            "name": "settings.comment.line",
+                            "match": "//.*?$"
+                        },
+                        {
+                            "name": "settings.comment.blockline",
+                            "begin": "(?<!/)/\\*([^*/]|\\*(?!/)|/(?<!\\*))*",
+                            "end": "((?=\\*/))(\\*/)"
+                        },
+                        {
+                            "name": "settings.string.value",
+                            "begin": "\"",
+                            "end": "\""
+                        },
+                        {
+                            "name": "settings.constant.numeric",
+                            "match": "\\b[0-9]+(\\.[0-9]+)?\\b"
+                        }
+                    ]
+                },  
+                {
+                    "name": "qrunes.script.cpp",
+                    "begin": "\\b(language)\\b\\s*=\\s*C\\+\\+\\s*\\;",
+                    "end": "\\@\\@\\@",
+                    "captures": {
+                        "1": {
+                            "name": "settings.keyword"
+                        }
+                    },
+                    "patterns":[
+                        {
+                            "name": "symbol",
+                            "match": "\\@"
+                        },
+                        { 
+                            "name": "qcodes",
+                            "begin": "(\\bqcodes\\b\\s*\\:)",
+                            "end": "\\@",
+                            "captures": {
+                                "0": {
+                                    "name": "qcodes.name"
+                                }
+                            },
+                            "patterns": [
+                                {
+                                    "name": "qcodes.keyword",
+                                    "match": "\\b(if|else|for|while|break|continue|let|return|qif|qelse|qwhile|var|include)\\b"
+                                },
+                                {
+                                    "name": "qcodes.type",
+                                    "match": "\\b(qvec|cvec|qubit|cbit|int|float|double)\\b"
+                                },
+                                {
+                                    "name": "qcodes.method",
+                                    "match": "\\b(len|H|X|NOTE|T|S|Y|Z|X1|Y1|Z1|U4|RX|RY|RZ|CNOT|CR|CZ|CU|iSWAP|Measure)\\b"
+                                },
+                                {
+                                    "name": "qcodes.comment.line",
+                                    "match": "//.*?$"
+                                },
+                                {
+                                    "name": "qcodes.comment.blockline",
+                                    "begin": "(?<!/)/\\*([^*/]|\\*(?!/)|/(?<!\\*))*",
+                                    "end": "((?=\\*/))(\\*/)"
+                                },
+                                {
+                                    "name": "qcodes.string.value",
+                                    "begin": "\"",
+                                    "end": "\""
+                                },
+                                {
+                                    "name": "qcodes.string.value",
+                                    "begin": "\\'",
+                                    "end": "\\'"
+                                },
+                                {
+                                    "name": "qcodes.constant.numeric",
+                                    "match": "\\b[0-9]+(\\.[0-9]+)?\\b"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "cpp.script",
+                            "begin": "(\\bscript\\b\\s*\\:)",
+                            "end": "\\@",
+                            "captures": {
+                                "0": {
+                                    "name": "script.name"
+                                }
+                            },
+                            "patterns": [
+                                {
+                                    "name": "cpp.script.constants",
+                                    "match": "\\b(include|auto|return|if|else|for|vector)\\b"
+                                },
+                                {
+                                    "name": "cpp.script.type",
+                                    "match": "\\b(bool|char|short|wchar_t|int|float|long|double|Qubit|CBit|ClassicalCondition|QVec)\\b"
+                                },
+                                {
+                                    "name": "cpp.script.method",
+                                    "match": "\\b(qAlloc|cAlloc|init|finalize|qFree|cFree|QProg|resize|load|run|PMeasure_no_index|PMeasure|directlyRun|probRunDict|probRunTupleList|probRunList|quick_measure)\\b"
+                                },
+                                {
+                                    "name": "cpp.script.value",
+                                    "begin": "\"",
+                                    "end": "\""
+                                },
+                                {
+                                    "name": "cpp.comment.line",
+                                    "match": "//.*?$"
+                                },
+                                {
+                                    "name": "cpp.comment.blockline",
+                                    "begin": "(?<!/)/\\*([^*/]|\\*(?!/)|/(?<!\\*))*",
+                                    "end": "((?=\\*/))(\\*/)"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "settings.keyword",
+                            "match": "\\b(language|autoimport|compile_only)\\b"
+                        },
+                        {
+                            "name": "settings.comment.line",
+                            "match": "//.*?$"
+                        },
+                        {
+                            "name": "settings.comment.blockline",
+                            "begin": "(?<!/)/\\*([^*/]|\\*(?!/)|/(?<!\\*))*",
+                            "end": "((?=\\*/))(\\*/)"
+                        },
+                        {
+                            "name": "settings.string.value",
+                            "begin": "\"",
+                            "end": "\""
+                        },
+                        {
+                            "name": "settings.constant.numeric",
+                            "match": "\\b[0-9]+(\\.[0-9]+)?\\b"
+                        }
+                    ]
+                },
+                {
+                    "name": "settings.keyword",
+                    "match": "\\b(language|autoimport|compile_only)\\b"
+                }
+            ]
+        },
+        {
+            "name": "symbol",
+            "match": "\\@"
+        },
+        { 
+            "name": "qcodes",
+            "begin": "(\\bqcodes\\b\\s*\\:)",
+            "end": "\\@",
+            "captures": {
+                "1": {
+                    "name": "qcodes.name"
+                }
+            },
+            "patterns": [
+                {
+                    "name": "qcodes.keyword",
+                    "match": "\\b(if|else|for|while|break|continue|let|return|qif|qelse|qwhile|var|include)\\b"
+                },
+                {
+                    "name": "qcodes.type",
+                    "match": "\\b(qvec|cvec|qubit|cbit|int|float|double)\\b"
+                },
+                {
+                    "name": "qcodes.method",
+                    "match": "\\b(len|H|X|NOTE|T|S|Y|Z|X1|Y1|Z1|U4|RX|RY|RZ|CNOT|CR|CZ|CU|iSWAP|Measure)\\b"
+                },
+                {
+                    "name": "qcodes.comment.line",
+                    "match": "//.*?$"
+                },
+                {
+                    "name": "qcodes.comment.blockline",
+                    "begin": "(?<!/)/\\*([^*/]|\\*(?!/)|/(?<!\\*))*",
+                    "end": "((?=\\*/))(\\*/)"
+                },
+                {
+                    "name": "qcodes.string.value",
+                    "begin": "\"",
+                    "end": "\""
+                },
+                {
+                    "name": "qcodes.string.value",
+                    "begin": "\\'",
+                    "end": "\\'"
+                },
+                {
+                    "name": "qcodes.constant.numeric",
+                    "match": "\\b[0-9]+(\\.[0-9]+)?\\b"
+                }
+            ]
+        } 
+    ]
+}

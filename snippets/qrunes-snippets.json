@@ -1,0 +1,65 @@
+{
+    "stp": {
+        "prefix": "set4py",
+        "body": [ 
+            "@settings:",
+            "\tlanguage = Python;",
+            "\tautoimport = True;",
+            ""
+        ],
+        "description": "Code snippet for the python script imports"
+    },
+    "stc": {
+        "prefix": "set4cpp",
+        "body": [ 
+            "@settings:",
+            "\tlanguage = C++;",
+            "\tautoimport = True;",
+            ""
+        ],
+        "description": "Code snippet for the C++ script imports"
+    },
+    "qc": {
+        "prefix": "qco",
+        "body": [ 
+            "@qcodes:",
+            "\tinclude 'qpanda.lib'",
+            ""
+        ],
+        "description": "Code snippet for the basic qcodes imports"
+    },
+    "sc": {
+        "prefix": "scr",
+        "body": [ 
+            "@script:",
+            "from pyqpanda import *",
+            "from pyqpanda.utils import *",
+            "\t",
+            "init()",
+            "\t",
+            "finalize()",
+            ""
+        ],
+        "description": "Code snippet for the basic script imports"
+    },
+    "sqs": {
+        "prefix": "sqs",
+        "body": [ 
+            "@settings:",
+            "\t",
+            "@qcodes:",
+            "\t",
+            "@script:"
+        ],
+        "description": "Code snippet for the basic qcodes imports"
+    },
+    "pimport": {
+        "prefix": "pyimport",
+        "body": [ 
+            "from pyqpanda import *",
+            "from pyqpanda.utils import *",
+            ""
+        ],
+        "description": "Code snippet for the pyqpanda imports"
+    }
+}

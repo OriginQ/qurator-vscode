@@ -1,0 +1,121 @@
+{
+    "classes": [{
+        "name": "init",
+        "detail": "Initialization.",
+        "documentation": "Initialize the environment.",
+        "data": {
+            "languageId": "qcodes"
+        },
+        "methods": []
+    }, 
+    {
+        "name": "finalize",
+        "detail": "Finalize machine.",
+        "documentation": "Finalize machine. Do this after you finish all your work.",
+        "data": {
+            "languageId": "qcodes"
+        },
+        "methods": []
+    },
+    {   
+        "name": "qAlloc_many",
+        "detail": "Allocate a list of qubit.",
+        "documentation": "Allocate a list of qubit.",
+        "data": {
+            "languageId": "qcodes"
+        },
+        "arguments": [{
+            "name": "alloc_num",
+            "type":  "number"
+        }],
+        "methods": []
+    },
+    {
+        "name": "cAlloc_many",
+        "detail": "Allocate a list of cbit.",
+        "documentation": "Allocate a list of cbit.",
+        "data": {
+            "languageId": "qcodes"
+        },
+        "arguments": [{
+            "name": "alloc_num",
+            "type":  "number"
+        }],
+        "methods": []
+    },
+    {
+        "name": "prob_run",
+        "detail": "Run with probability method.",
+        "documentation": "Run with probability method.",
+        "data": {
+            "languageId": "qcodes"
+        },
+        "arguments": [{
+            "name": "program",
+            "type":  "QProg"
+        },{
+            "name": "noise",
+            "type": "boolean"
+        },{
+            "name": "select_max",
+            "type": "number"
+        },{
+            "name": "qubit_list",
+            "type": "list<number>"
+        },{
+            "name": "dataType",
+            "type":  "string"
+        }],
+        "methods": []
+    },
+    {
+        "name": "run_with_configuration",
+        "detail": "Run the program with some configuration.",
+        "documentation": "Run the program with some configuration.",
+        "data": {
+            "languageId": "qcodes"
+        },
+        "arguments": [{
+            "name": "program",
+            "type":  "QProg"
+        },{
+            "name": "shots",
+            "type": "number"
+        },{
+            "name": "cbit_list",
+            "type": "list<cbit>"
+        }],
+        "methods": []
+    },
+    {
+        "name": "directly_run",
+        "detail": "Load, Run and Fetch Result.",
+        "documentation": "Load, Run and Fetch Result.",
+        "data": {
+            "languageId": "qcodes"
+        },
+        "arguments": [{
+            "name": "program",
+            "type":  "QProg"
+        }],
+        "methods": []
+    },
+    {
+        "name": "QProg",
+        "detail": "QProg object.",
+        "documentation": "Create an empty QProg object.",
+        "data": {
+            "languageId": "qcodes"
+        },
+        "methods": [{
+            "name": "insert",
+            "type": "void",
+            "detail": "Insert into QProg.",
+            "documentation": "Insert into QProg.",
+            "arguments": [{
+                "name": "*args",
+                "type": "QGate"
+            }]
+        }]
+    }]
+}

@@ -1,0 +1,21 @@
+{
+	"extends": "../tsconfig.base.json",
+	"compilerOptions": {
+		"target": "es2018",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"sourceMap": true,
+		"outDir": "out",
+		"rootDir": "src",
+		"lib": [ "es2018" ],
+		"noUnusedLocals": false,
+		"noUnusedParameters": false,
+		"experimentalDecorators": true
+	},
+	"include": [
+		"src"
+	],
+	"exclude": [
+		"node_modules"
+	]
+}
