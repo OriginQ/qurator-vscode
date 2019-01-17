@@ -3,7 +3,8 @@
 > A general purpose quantum programming language.
 
 A Visual Studio Code extension with support for QRunes language. It provides some useful commands to make easier launching jobs and Intuitive display results among others.
-![Qurator VSCode Extension](https://raw.githubusercontent.com/OriginQ/qurator-vscode/master/docs/images/execute-sample.gif "Example of running Qurator VSCode Extension")
+    <img style="margin:0 auto;display:block;width:60%;"  src="https://raw.githubusercontent.com/OriginQ/qurator-vscode/master/docs/images/execute-sample.gif" alt="Example of running Qurator VSCode Extension" />
+
 ## Requirements
 
 1. Python(version 3.6.4 or later) 
