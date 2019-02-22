@@ -43,6 +43,21 @@ QRunes2 语言中的方法、变量都有详细的解释及用法。每当您编
 
 .. image:: ../images/snippet.gif
 
+插件支持的片段有：
+
+===============  ========================================
+    片段                          简介
+===============  ========================================
+settings4py       宿主语言为 Python 时的 settings 模块片段
+settings4cpp      宿主语言为 Cpp 时的 settings 模块片段 
+qco               qcodes 模块片段
+script4py         宿主语言为 Python 时的 script 模块片段
+script4cpp        宿主语言为 Cpp 时的 script 模块片段
+sqs4py            宿主语言为 Python 时的三个模块片段
+sqs4cpp           宿主语言为 Cpp 时的三个模块片段
+quanmac           宿主语言为 Python 时 init 方法参数
+===============  ========================================
+
 6. 语言切换
 -------------
 
