@@ -19,7 +19,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'qurator_tutorial'
+project = 'Qurator User Manual'
 copyright = '2019, www.originqc.com'
 author = 'www.originqc.com'
 
