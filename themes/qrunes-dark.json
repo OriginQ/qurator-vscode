@@ -830,7 +830,8 @@
         },
         {
             "scope": [
-                "python.script.keyword"
+				"python.script.keyword",
+				"cpp.script.keywords"
             ],
             "settings": {
                 "foreground": "#C586C0"

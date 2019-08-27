@@ -19,6 +19,7 @@ export class HistogramRenderer implements RenderStrategy {
 
     render(): string {
         let templatePath = Util.getOSDependentPath('../../client/resources/html-templates/temp-plot-shots.html');
+        
         let resultString = this.result.toString().replace(/\"/g,"'");
         try {
             return this.createFile(resultString, templatePath);
@@ -29,9 +30,10 @@ export class HistogramRenderer implements RenderStrategy {
     createFile(countsArray: object | string, templatePath: string): string {
        
         let template = fs.readFileSync(templatePath, { encoding: 'utf8' });
+        let absolutePath = Util.getOSDependentPath('../../client/resources/html-templates');
         if (template) {
-            nunjucks.configure({ autoescape: false });
-            return nunjucks.renderString(template, {bits:countsArray});
+            nunjucks.configure({ autoescape: false});
+            return nunjucks.renderString(template, {bits:countsArray,src:absolutePath});
         } else {
             return `<pre>${countsArray}</pre>`;
         }

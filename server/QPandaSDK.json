@@ -1,0 +1,139 @@
+{
+    "methods": [{
+        "name": "init",
+        "detail": "Initialization.",
+        "documentation": "Initialize the environment.",
+        "data": {
+            "languageId": "script"
+        }
+    }, 
+    {
+        "name": "finalize",
+        "detail": "Finalize machine.",
+        "documentation": "Finalize machine. Do this after you finish all your work.",
+        "data": {
+            "languageId": "script"
+        }
+    },
+    {   
+        "name": "qAlloc",
+        "detail": "Allocate a qubit.",
+        "documentation": "Allocate a qubit.",
+        "data": {
+            "languageId": "script"
+        }
+    },
+    {
+        "name": "cAlloc",
+        "detail": "Allocate a cbit.",
+        "documentation": "Allocate a cbit.",
+        "data": {
+            "languageId": "script"
+        }
+    },
+    {
+        "name": "load",
+        "detail": "load(QProg & qProg).",
+        "documentation": "Load quantum program.",
+        "data": {
+            "languageId": "script"
+        }
+    },
+    {
+        "name": "run",
+        "detail": "Run quantum program.",
+        "documentation": "Run quantum program.",
+        "data": {
+            "languageId": "script"
+        }
+    },
+    {
+        "name": "QVec",
+        "detail": "Allocate a vector of qubit.",
+        "documentation": "Allocate a vector of qubit.",
+        "data": {
+            "languageId": "script"
+        }
+    },
+    {
+        "name": "ClassicalCondition",
+        "detail": "Allocate and run a cbit.",
+        "documentation": "Allocate and run a cbit.",
+        "data": {
+            "languageId": "script"
+        }
+    },
+    {
+        "name": "PMeasure_no_index",
+        "detail": "PMeasure_no_index(QVec & qubit_vector).",
+        "documentation": "PMeasure_no_index(QVec & qubit_vector).",
+        "data": {
+            "languageId": "script"
+        }
+    },
+    {
+        "name": "PMeasure",
+        "detail": "PMeasure(QVec & qubit_vector, int select_max).",
+        "documentation": "PMeasure(QVec & qubit_vector, int select_max).",
+        "data": {
+            "languageId": "script"
+        }
+    },
+    {
+        "name": "directlyRun",
+        "detail": "directlyRun(QProg & qProg).",
+        "documentation": "directlyRun(QProg & qProg).",
+        "data": {
+            "languageId": "script"
+        }
+    },
+    {
+        "name": "probRunDict",
+        "detail": "probRunDict(QProg & qProg, QVec & vQubit, int selectMax).",
+        "documentation": "probRunDict(QProg & qProg, QVec & vQubit, int selectMax).",
+        "data": {
+            "languageId": "script"
+        }
+    },
+    {
+        "name": "probRunTupleList",
+        "detail": "probRunTupleList(QProg & qProg, QVec & vQubit, int selectMax).",
+        "documentation": "probRunTupleList(QProg & qProg,QVec & vQubit, int selectMax).",
+        "data": {
+            "languageId": "script"
+        }
+    },
+    {
+        "name": "probRunList",
+        "detail": "probRunList(QProg & qProg, QVec & vQubit, int selectMax).",
+        "documentation": "probRunList(QProg & qProg, QVec & vQubit, int selectMax).",
+        "data": {
+            "languageId": "script"
+        }
+    },
+    {
+        "name": "quick_measure",
+        "detail": "quick_measure(QVec & qubit_vector, int shots, vector<double>& accumulate_probability).",
+        "documentation": "quick_measure(QVec & qubit_vector, int shots, vector<double>& accumulate_probability).",
+        "data": {
+            "languageId": "script"
+        }
+    },
+    {
+        "name": "getResultMap",
+        "detail": "getResultMap().",
+        "documentation": "Directly get the result.",
+        "data": {
+            "languageId": "script"
+        }
+    },
+    {
+        "name": "runWithConfiguration",
+        "detail": "runWithConfiguration(QProg & qProg, vector<ClassicalCondition>& vCBit, int shots).",
+        "documentation": "runWithConfiguration(QProg & qProg, vector<ClassicalCondition>& vCBit, int shots).",
+        "data": {
+            "languageId": "script"
+        }
+    }
+    ]
+}

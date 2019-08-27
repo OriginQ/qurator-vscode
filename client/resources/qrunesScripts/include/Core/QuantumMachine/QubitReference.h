@@ -1,9 +1,9 @@
 #ifndef _QUBIT_REFERENCE_H
 #define _QUBIT_REFERENCE_H
 #include <vector>
-#include "QubitFactory.h"
-#include "QuantumCircuit/ClassicalConditionInterface.h"
-#include "QPandaNamespace.h"
+#include "Core/QuantumMachine/QubitFactory.h"
+#include "Core/QuantumCircuit/ClassicalConditionInterface.h"
+#include "Core/Utilities/QPandaNamespace.h"
 QPANDA_BEGIN
 class QubitReference :public Qubit
 {

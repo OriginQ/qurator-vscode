@@ -66,15 +66,15 @@
                             "patterns": [
                                 {
                                     "name": "qcodes.keyword",
-                                    "match": "\\b(if|else|for|while|break|continue|let|return|qif|qelse|qwhile|var|include)\\b"
+                                    "match": "\\b(if|else|for|while|break|continue|let|return|qif|qelse|qwhile|include)\\b"
                                 },
                                 {
                                     "name": "qcodes.type",
-                                    "match": "\\b(qvec|cvec|qubit|cbit|int|float|double)\\b"
+                                    "match": "\\b(qubit|cbit|int|float|double|bool|circuitGen|hamiltonian|var)\\b"
                                 },
                                 {
                                     "name": "qcodes.method",
-                                    "match": "\\b(len|H|X|NOTE|T|S|Y|Z|X1|Y1|Z1|U4|RX|RY|RZ|CNOT|CR|CZ|CU|iSWAP|Measure|Pi)\\b"
+                                    "match": "\\b(len|H|X|NOTE|T|S|Y|Z|X1|Y1|Z1|U4|RX|RY|RZ|CNOT|CR|CZ|CU|iSWAP|Toffoli|measure|Pi|VQG_CNOT|VQG_RX|VQG_RZ)\\b"
                                 },
                                 {
                                     "name": "qcodes.comment.line",
@@ -113,11 +113,11 @@
                             "patterns": [
                                 {
                                     "name": "python.script.keyword",
-                                    "match": "\\b(print|if|else|while|for|from|import|return|as|pass|break|continue)\\b"
+                                    "match": "\\b(as|assert|break|continue|del|elif|else|except|finally|for|from|if|import|pass|raise|return|try|while|with|yield)\\b"
                                 },
                                 {
                                     "name": "python.script.constants",
-                                    "match": "\\b(def|in|False|True)\\b"
+                                    "match": "\\b(and|class|def|global|in|is|lambda|not|or|False|True)\\b"
                                 },
                                 {
                                     "name": "python.script.type",
@@ -125,7 +125,7 @@
                                 },
                                 {
                                     "name": "python.script.method",
-                                    "match": "\\b(range|len|directly_run|prob_run|run_with_configuration|QProg|insert|qAlloc_many|cAlloc_many|init|finalize|quick_measure|prob_run_dict|prob_run_tuple_list|prob_run_list|PMeasure_no_index|PMeasure)\\b"
+                                    "match": "\\b(print|range|input|len|directly_run|prob_run|run_with_configuration|QProg|insert|qAlloc|cAlloc|qAlloc_many|cAlloc_many|init|finalize|quick_measure|prob_run_dict|prob_run_tuple_list|prob_run_list|PMeasure_no_index|PMeasure)\\b"
                                 },
                                 {
                                     "name": "python.script.comment.line",
@@ -207,15 +207,15 @@
                             "patterns": [
                                 {
                                     "name": "qcodes.keyword",
-                                    "match": "\\b(if|else|for|while|break|continue|let|return|qif|qelse|qwhile|var|include)\\b"
+                                    "match": "\\b(if|else|for|while|break|continue|let|return|qif|qelse|qwhile|include)\\b"
                                 },
                                 {
                                     "name": "qcodes.type",
-                                    "match": "\\b(qvec|cvec|qubit|cbit|int|float|double)\\b"
+                                    "match": "\\b(qubit|cbit|int|float|double|bool|circuitGen|hamiltonian|var)\\b"
                                 },
                                 {
                                     "name": "qcodes.method",
-                                    "match": "\\b(len|H|X|NOTE|T|S|Y|Z|X1|Y1|Z1|U4|RX|RY|RZ|CNOT|CR|CZ|CU|iSWAP|Measure)\\b"
+                                    "match": "\\b(len|H|X|NOT|T|S|Y|Z|X1|Y1|Z1|U4|RX|RY|RZ|CNOT|CR|CZ|CU|iSWAP|Toffoli|measure|Pi|VQG_CNOT|VQG_RX|VQG_RZ)\\b"
                                 },
                                 {
                                     "name": "qcodes.comment.line",
@@ -253,16 +253,20 @@
                             },
                             "patterns": [
                                 {
+                                    "name": "cpp.script.keywords",
+                                    "match": "\\b(auto|break|case|catch|continue|default|delete|do|else|for|goto|new|operator|return|switch|throw|try|using|while|if)\\b"
+                                },
+                                {
                                     "name": "cpp.script.constants",
-                                    "match": "\\b(include|auto|return|if|else|for|vector)\\b"
+                                    "match": "\\b(class|const|const_cast|dynamic_cast|enum|explicit|export|extern|false|friend|inline|mutable|namespace|register|reinterpret_cast|signed|sizeof|static|static_cast|struct|this|true|union|unsigned|virtual|void|volatile)\\b"
                                 },
                                 {
                                     "name": "cpp.script.type",
-                                    "match": "\\b(bool|char|short|wchar_t|int|float|long|double|Qubit|CBit|ClassicalCondition|QVec)\\b"
+                                    "match": "\\b(bool|char|short|wchar_t|int|float|long|double|char16_t|char32_t|Qubit|CBit|ClassicalCondition|QVec)\\b"
                                 },
                                 {
                                     "name": "cpp.script.method",
-                                    "match": "\\b(qAlloc|cAlloc|init|finalize|qFree|cFree|QProg|resize|load|run|PMeasure_no_index|PMeasure|directlyRun|probRunDict|probRunTupleList|probRunList|quick_measure)\\b"
+                                    "match": "\\b(qAlloc|cAlloc|init|finalize|qFree|cFree|QProg|resize|load|run|PMeasure_no_index|PMeasure|directlyRun|probRunDict|probRunTupleList|probRunList|quick_measure|runWithConfiguration|qAllocMany|cAllocMany)\\b"
                                 },
                                 {
                                     "name": "cpp.script.value",
@@ -326,15 +330,15 @@
             "patterns": [
                 {
                     "name": "qcodes.keyword",
-                    "match": "\\b(if|else|for|while|break|continue|let|return|qif|qelse|qwhile|var|include)\\b"
+                    "match": "\\b(if|else|for|while|break|continue|let|return|qif|qelse|qwhile|include)\\b"
                 },
                 {
                     "name": "qcodes.type",
-                    "match": "\\b(qvec|cvec|qubit|cbit|int|float|double)\\b"
+                    "match": "\\b(qubit|cbit|int|float|double|bool|circuitGen|hamiltonian|var)\\b"
                 },
                 {
                     "name": "qcodes.method",
-                    "match": "\\b(len|H|X|NOTE|T|S|Y|Z|X1|Y1|Z1|U4|RX|RY|RZ|CNOT|CR|CZ|CU|iSWAP|Measure)\\b"
+                    "match": "\\b(len|H|X|NOTE|T|S|Y|Z|X1|Y1|Z1|U4|RX|RY|RZ|CNOT|CR|CZ|CU|iSWAP|measure|Toffoli|Pi|VQG_CNOT|VQG_RX|VQG_RZ)\\b"
                 },
                 {
                     "name": "qcodes.comment.line",

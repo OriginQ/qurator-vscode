@@ -90,29 +90,21 @@ export namespace ActivationUtils {
                         );
                 })
             ),
-           
             //Run QRUNES File 
             vscode.commands.registerCommand('qurator-vscode.runQRunesCode', () =>
-                CommandExecutor.execQrunesActiveEditorTwo(executeQRUNESScript).then(codeResult => {
-                    let resultProvider = new ResultProvider();
-                    vscode.workspace.registerTextDocumentContentProvider('qruns-preview-result', resultProvider);
-                    let previewUri = vscode.Uri.parse(`qruns-preview-result://authority/result-preview`);
+                CommandExecutor.execQrunesActiveEditor(executeQRUNESScript).then(codeResult => {
                     // let execPath = Util.getOSDependentPath(executeQRUNESScript);
-                    resultProvider.displayContent(VizManager.createViz(codeResult), previewUri);
-                    vscode.commands
-                        .executeCommand(
-                            'vscode.previewHtml',
-                            previewUri,
-                            vscode.ViewColumn.Two,
-                            'Execution result - QRUNES'
-                        )
-                        .then(
-                            _success => {},
-                            reason => {
-                                QLogger.error(`Error: ${reason}`, this);
-                                vscode.window.showErrorMessage(reason);
-                            }
-                        );
+                    const panel = vscode.window.createWebviewPanel(
+                        'ExecutionResultQRUNES', // Identifies the type of the webview. Used internally
+                        'Execution result - QRUNES', // Title of the panel displayed to the user
+                        vscode.ViewColumn.Two, // Editor column to show the new webview panel in.
+                        {
+                            enableScripts: true,
+                            retainContextWhenHidden: true
+                        } // Enable JS & retain context
+                    );
+                    // And set its HTML content
+                    panel.webview.html = VizManager.createViz(codeResult);
                 })
             ),
         )

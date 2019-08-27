@@ -13,10 +13,11 @@ import {
 	InitializeResult,
 	DiagnosticSeverity
 } from 'vscode-languageserver';
-import { getLanguageModes, LanguageModes, Settings } from './modes/languageModes';
-import { runSafe, runSafeAsync, formatError } from './tools/runner';
+import { getLanguageModes, LanguageModes, Settings } from './qrunesModes/languageModes';
+import { runSafe, runSafeAsync } from './tools/runner';
 import { pushAll } from './tools/arrays';
 
+// Get language modes from qrunesModes package
 let languageModes: LanguageModes;
 let documentSettingss: { [key: string]: Thenable<Settings> } = {};
 
@@ -70,7 +71,9 @@ connection.onInitialize((params: InitializeParams): InitializeResult=> {
 				resolveProvider: true,	
 			},
 			hoverProvider: true,
-			documentHighlightProvider: true		
+			documentHighlightProvider: true,
+			definitionProvider: true,
+			//codeActionProvider: true		
 		}
 	};
 });
@@ -231,6 +234,34 @@ connection.onHover((textDocumentPosition, token) => {
 		return null;
 	}, null, `Error while computing hover for ${textDocumentPosition.textDocument.uri}`, token);
 });
+
+// This handler provides the go to definition function base on document position.
+connection.onDefinition((definitionParams, token) => {
+	return runSafe(() => {
+		const document = documents.get(definitionParams.textDocument.uri);
+		if (document) {
+			const mode = languageModes.getModeAtPosition(document, definitionParams.position);
+			if (mode && mode.findDefinition) {
+				return mode.findDefinition(document, definitionParams.position);
+			}
+		}
+		return [];
+	}, null, `Error while computing definitions for ${definitionParams.textDocument.uri}`, token);
+});
+
+// This handler provides the go to definition function base on document position.
+// connection.onCodeAction((codeActionParams, cancellationToken) => {
+// 	return runSafe(() => {
+// 		const document = documents.get(codeActionParams.textDocument.uri);
+// 		if (document) {
+// 			const mode = languageModes.getMode("qcodes");
+// 			if (mode && mode.codeAction) {
+// 				return mode.findDefinition(document, );
+// 			}
+// 		}
+// 		return null;
+// 	}, null, `Error while computing codeAction for ${codeActionParams.textDocument.uri}`, cancellationToken);
+// });
 
 function getQrunesValidation(textDocument: TextDocument): Diagnostic[] {
 	let diagnostics: Diagnostic[] = []; 

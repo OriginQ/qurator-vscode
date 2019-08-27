@@ -17,7 +17,7 @@ limitations under the License.
 #ifndef QUBIT_POOL_FACTORY_H
 #define QUBIT_POOL_FACTORY_H
 
-#include "QubitFactory.h"
+#include "Core/QuantumMachine/QubitFactory.h"
 #include <functional>
 #include <stack>
 QPANDA_BEGIN
@@ -31,12 +31,14 @@ class QubitPool
 public:
     virtual size_t getMaxQubit() const = 0;
     virtual size_t getIdleQubit() const = 0;
-    virtual Qubit* Allocate_Qubit() = 0;
-    virtual Qubit* Allocate_Qubit(size_t) = 0;
+    virtual Qubit* allocateQubit() = 0;
+    virtual Qubit* allocateQubitThroughPhyAddress(size_t) = 0;
+    virtual Qubit* allocateQubitThroughVirAddress(size_t qubit_num) = 0; // allocate and return a qubit
     virtual void Free_Qubit(Qubit*) = 0;
     virtual void clearAll() = 0;
     virtual ~QubitPool() {}
     virtual size_t getPhysicalQubitAddr(Qubit*) = 0;
+    virtual size_t getVirtualQubitAddress(Qubit*) const = 0;
 };
 
 

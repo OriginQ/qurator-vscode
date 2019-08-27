@@ -12,211 +12,142 @@ Update@2018-8-30
 update comment
 
 */
+/*! \file QProgDataParse.h */
 #ifndef QPROGDATPARSE_H
 #define QPROGDATPARSE_H
 
 #include <stdio.h>
 #include <iostream>
+#include <fstream>
+#include <istream>
 #include <list>
 #include <string>
 #include <map>
-#include "QProgToQuil.h"
-#include "QuantumCircuit/QGlobalVariable.h"
-#include "QuantumCircuit/QProgram.h"
+#include "Core/Utilities/Transform/QProgToQuil.h"
+#include "Core/QuantumCircuit/QGlobalVariable.h"
+#include "Core/QuantumCircuit/QProgram.h"
 #include <stack>
+#include "Core/QuantumCircuit/ClassicalProgram.h"
+#include "Core/QuantumMachine/OriginQuantumMachine.h"
+#include "Core/Utilities/Transform/QProgTransform.h"
 
+/**
+* @namespace QPanda
+* @namespace QGATE_SPACE
+*/
 QPANDA_BEGIN
-#ifndef _DATPARSE_
-#define _DATPARSE_
 
-const unsigned short kUshortMax = 65535;
-const int kCountMoveBit = 16;
-#define DEF_QPROG_FILENAME        "QProg.dat"
-
-enum QProgStoredNodeType{
-    QPROG_NODE_TYPE_PAULI_X_GATE = 1,
-    QPROG_NODE_TYPE_PAULI_Y_GATE,
-    QPROG_NODE_TYPE_PAULI_Z_GATE,
-    QPROG_NODE_TYPE_X_HALF_PI,
-    QPROG_NODE_TYPE_Y_HALF_PI,
-    QPROG_NODE_TYPE_Z_HALF_PI,
-    QPROG_NODE_TYPE_HADAMARD_GATE,
-    QPROG_NODE_TYPE_T_GATE,
-    QPROG_NODE_TYPE_S_GATE,
-    QPROG_NODE_TYPE_RX_GATE,
-    QPROG_NODE_TYPE_RY_GATE,
-    QPROG_NODE_TYPE_RZ_GATE,
-    QPROG_NODE_TYPE_U1_GATE,
-    QPROG_NODE_TYPE_U2_GATE,
-    QPROG_NODE_TYPE_U3_GATE,
-    QPROG_NODE_TYPE_U4_GATE,
-    QPROG_NODE_TYPE_CU_GATE,
-    QPROG_NODE_TYPE_CNOT_GATE,
-    QPROG_NODE_TYPE_CZ_GATE,
-    QPROG_NODE_TYPE_CPHASE_GATE,
-    QPROG_NODE_TYPE_ISWAP_GATE,
-    QPROG_NODE_TYPE_SQISWAP_GATE,
-    QPROG_NODE_TYPE_GATE_ANGLE,
-    QPROG_NODE_TYPE_MEASURE_GATE,
-    QPROG_NODE_TYPE_QIF_NODE,
-    QPROG_NODE_TYPE_QWHILE_NODE,
-    QPROG_NODE_TYPE_CEXPR_CBIT,
-    QPROG_NODE_TYPE_CEXPR_OPERATOR,
-};
-
-#endif
-using QGATE_SPACE::angleParameter;
-
-
-/*
-parse binary file to QProg
+/**
+* @class QProgDataParse
+* @ingroup Utilities
+* @brief parse binary file to quantum program
 */
 class QProgDataParse
 {
-    typedef unsigned short                      ushort_t;
-    typedef unsigned int                        uint_t;
+    /**
+    * @class DataNode
+    * @brief Quantum program node data
+    */
     union DataNode
     {
-        DataNode(){}
-        DataNode(uint_t data): qubit_data(data){}
-        DataNode(float data): angle_data(data){}
+        DataNode() {}
+        DataNode(uint32_t data) : qubit_data(data) {}
+        DataNode(float data) : angle_data(data) {}
 
-        uint_t qubit_data;
+        uint32_t qubit_data;
         float angle_data;
     };
 
-    typedef std::list<std::pair<uint_t, DataNode>>        dataList_t;
-    typedef std::map<int, std::string>                    gateMap_t;
-    typedef std::map<int, std::string>                    operatorMap_t;
+    typedef std::vector<std::pair<uint32_t, DataNode>>     dataList_t;
+    typedef std::map<int, std::string>                     gateMap_t;
+    typedef std::map<int, std::string>                     operatorMap_t;
 public:
-    QProgDataParse(const std::string &filename);
+    QProgDataParse(QuantumMachine *qm);
     ~QProgDataParse();
 
-    /*
-    open file
-    param:
-        None
-    return:
-        None
 
-    Note:
-        None
+    /**
+    * @brief  Load  qprog data from file
+    * @param[in]  std::string& filename
+    * @retval 1    load  success
+    * @retval 0    load  failed
     */
-    bool loadFile();
+    bool load(const std::string &filename);
 
-    /*
-    parse file data to QProg
-    param:
-        prog : file data to QProg
-    return:
-        None
+    /**
+    * @brief  Load  qprog data from data vector
+    * @param[in]  std::vector<uint8_t>& data
+    * @retval 1     load  success
+    * @retval 0     load  failed
+    */
+    bool load(const std::vector<uint8_t> &data);
 
-    Note:
-        None
+    /**
+    * @brief   Parse binary file to QProg
+    * @param[out]  QProg& prog
+    * @retval 1     parse success
+    * @retval 0     parse failed
+    * @exception  invalid_argument  parse error
     */
     bool parse(QProg &prog);
+    QVec getQubits() const;
+    std::vector<ClassicalCondition> getCbits() const;
 
-protected:
-    void parseDataNode(QProg &prog, const uint_t tail_number);
-
-    /*
-    Parse QGate node data
-    param:
-        prog : QProg
-        type_and_number: data can get node type and qubit number
-        qubits_data: data can get all qubits
-    return:
-        None
-
-    Note:
-        None
-    */
-    void parseQGateDataNode(QProg &prog, const uint_t type_and_number, const uint_t qubits_data);
-
-    /*
-    Parse QMeasure node data
-    param:
-        prog : QProg
-        qubits_data: data can get all qubits
-    return:
-        None
-
-    Note:
-        None
-    */
-    void parseQMeasureDataNode(QProg &prog, uint_t qubits_data);
-
-    /*
-    Parse CExpr cbit node data
-    param:
-        data : data can get CExpr cbit msg
-    return:
-        None
-
-    Note:
-        None
-    */
-    void parseCExprCBitDataNode(const uint_t data);
-
-    /*
-    Parse CExpr operator node data
-    param:
-        data : data can get CExpr oprator
-    return:
-        None
-
-    Note:
-        None
-    */
-    void parseCExprOperateDataNode(const uint_t data);
-
-    /*
-    Parse QIf node data
-    param:
-        prog : QProg
-        data : data can get QIf msg
-    return:
-        None
-
-    Note:
-        None
-    */
-    void parseQIfDataNode(QProg &prog, const uint_t data);
-
-    /*
-    Parse QWhile node data
-    param:
-        prog : QProg
-        data : data can get QWhile msg
-    return:
-        None
-
-    Note:
-        None
-    */
-    void parseQWhileDataNode(QProg &prog, uint_t data);
-
-    /*
-    get angle from data
-    param:
-        data : store angle msg
-    return:
-        angle
-
-    Note:
-        None
-    */
-    float getAngle(const std::pair<uint_t, DataNode> &data);
 private:
-    std::string m_filename;
-    uint_t m_file_length;
-    uint_t m_node_counter;
-    dataList_t m_data_list;
 
-    std::list<std::pair<uint_t, DataNode>>::iterator m_iter;
+    void parseDataNode(QProg &prog, const uint32_t &tail_number);
+    void parseQGateDataNode(QProg &prog, const uint32_t &type_and_number, const uint32_t &qubits_data);
+    void parseQMeasureDataNode(QProg &prog, uint32_t qubits_data);
+    void parseCExprCBitDataNode(const uint32_t &data);
+    void parseCExprOperateDataNode(const uint32_t &data);
+    void parseCExprConstValueDataNode(const int &data);
+    void parseCExprEvalDataNode(const int &data);
+    void parseQIfDataNode(QProg &prog, const uint32_t &data);
+    void parseQWhileDataNode(QProg &prog, uint32_t data);
+    float getAngle(const std::pair<uint32_t, DataNode> &data);
+    int getCBitValue(const std::pair<uint32_t, DataNode> &data_node);
+
+    std::string m_filename;
+    uint32_t m_node_counter;
+    dataList_t m_data_vector;
+    QVec m_qubits;
+    std::vector<ClassicalCondition> m_cbits;
+
+    std::vector<std::pair<uint32_t, DataNode>>::iterator m_iter;
     std::stack<ClassicalCondition> m_stack_cc;
+    QuantumMachine *m_quantum_machine;
 };
-bool binaryQProgFileParse(QProg &prog, 
-    const std::string &filename = DEF_QPROG_FILENAME);
+
+/**
+* @brief  Parse quantum program interface for  binary file
+* @ingroup Utilities
+* @param[in]  QuantumMachine* quantum machine pointer
+* @param[in]  std::string& filename
+* @param[out]  QVec& qubits  
+* @param[out]  std::vector<ClassicalCondition>& cbits
+* @param[out]  QProg& Quantum program
+* @retval 1   parse success
+* @retval 0   parse failed
+* @exception  runtime_error  parse file error
+*/
+bool binaryQProgFileParse(QuantumMachine *qm, const std::string &filename, QVec &qubits,
+                          std::vector<ClassicalCondition> &cbits, QProg &prog);
+
+/**
+* @brief  Parse quantum program interface for  binary data vector
+* @ingroup Utilities
+* @param[in]  QuantumMachine* quantum machine pointer
+* @param[in]  std::vector<uint8_t>& data   binary data vector
+* @param[out]  QVec& qubits
+* @param[out]  std::vector<ClassicalCondition>& cbits
+* @param[out]  QProg& Quantum program
+* @retval 1  parse success
+* @retval 0  parse failed
+* @exception  runtime_error  parse file error
+*/
+bool binaryQProgDataParse(QuantumMachine *qm, const std::vector<uint8_t>& data, QVec & qubits, 
+                          std::vector<ClassicalCondition>& cbits, QProg & prog);
+
 QPANDA_END
+
 #endif // QPROGDATPARSE_H

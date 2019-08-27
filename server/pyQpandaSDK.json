@@ -1,121 +1,139 @@
 {
-    "classes": [{
+    "methods": [{
         "name": "init",
         "detail": "Initialization.",
         "documentation": "Initialize the environment.",
         "data": {
-            "languageId": "qcodes"
-        },
-        "methods": []
+            "languageId": "script"
+        }
     }, 
     {
         "name": "finalize",
         "detail": "Finalize machine.",
         "documentation": "Finalize machine. Do this after you finish all your work.",
         "data": {
-            "languageId": "qcodes"
-        },
-        "methods": []
+            "languageId": "script"
+        }
     },
     {   
         "name": "qAlloc_many",
-        "detail": "Allocate a list of qubit.",
+        "detail": "qAlloc_many(size: int)",
         "documentation": "Allocate a list of qubit.",
         "data": {
-            "languageId": "qcodes"
-        },
-        "arguments": [{
-            "name": "alloc_num",
-            "type":  "number"
-        }],
-        "methods": []
+            "languageId": "script"
+        }
     },
     {
         "name": "cAlloc_many",
-        "detail": "Allocate a list of cbit.",
+        "detail": "cAlloc_many(size: int)",
         "documentation": "Allocate a list of cbit.",
         "data": {
-            "languageId": "qcodes"
-        },
-        "arguments": [{
-            "name": "alloc_num",
-            "type":  "number"
-        }],
-        "methods": []
+            "languageId": "script"
+        }
+    },
+    {   
+        "name": "qAlloc",
+        "detail": "qAlloc()",
+        "documentation": "Allocate a qubit.",
+        "data": {
+            "languageId": "script"
+        }
+    },
+    {   
+        "name": "cAlloc",
+        "detail": "cAlloc()",
+        "documentation": "Allocate a cbit.",
+        "data": {
+            "languageId": "script"
+        }
     },
     {
         "name": "prob_run",
-        "detail": "Run with probability method.",
-        "documentation": "Run with probability method.",
+        "detail": "prob_run(qprog: QProg, noise: boolean, select_max: int, qubit_list: list[qubit], dataType: str).",
+        "documentation": "prob_run(qprog: QProg, noise: boolean, select_max: int, qubit_list: list[qubit], dataType: str).",
         "data": {
-            "languageId": "qcodes"
-        },
-        "arguments": [{
-            "name": "program",
-            "type":  "QProg"
-        },{
-            "name": "noise",
-            "type": "boolean"
-        },{
-            "name": "select_max",
-            "type": "number"
-        },{
-            "name": "qubit_list",
-            "type": "list<number>"
-        },{
-            "name": "dataType",
-            "type":  "string"
-        }],
-        "methods": []
+            "languageId": "script"
+        }
     },
     {
         "name": "run_with_configuration",
-        "detail": "Run the program with some configuration.",
-        "documentation": "Run the program with some configuration.",
+        "detail": "run_with_configuration(qprog: QProg, cbit_list: list[ClassicalCondition], shots: int).",
+        "documentation": "run_with_configuration(qprog: QProg, cbit_list: list[ClassicalCondition], shots: int).",
         "data": {
-            "languageId": "qcodes"
-        },
-        "arguments": [{
-            "name": "program",
-            "type":  "QProg"
-        },{
-            "name": "shots",
-            "type": "number"
-        },{
-            "name": "cbit_list",
-            "type": "list<cbit>"
-        }],
-        "methods": []
+            "languageId": "script"
+        }
     },
     {
         "name": "directly_run",
-        "detail": "Load, Run and Fetch Result.",
-        "documentation": "Load, Run and Fetch Result.",
+        "detail": "directly_run(qprog: QProg).",
+        "documentation": "directly_run(qprog: QProg).",
         "data": {
-            "languageId": "qcodes"
-        },
-        "arguments": [{
-            "name": "program",
-            "type":  "QProg"
-        }],
-        "methods": []
+            "languageId": "script"
+        }
+    },
+    {
+        "name": "quick_measure",
+        "detail": "quick_measure(qubit_list: list[qubit], shots: int).",
+        "documentation": "quick_measure(qubit_list: list[qubit], shots: int).",
+        "data": {
+            "languageId": "script"
+        }
+    },
+    {
+        "name": "prob_run_dict",
+        "detail": "prob_run_dict(qprog: QProg, qubit_list: list[qubit], select_max: int).",
+        "documentation": "prob_run_dict(qprog: QProg, qubit_list: list[qubit], select_max: int).",
+        "data": {
+            "languageId": "script"
+        }
+    },
+    {
+        "name": "prob_run_tuple_list",
+        "detail": "prob_run_tuple_list(qprog: QProg, qubit_list: list[qubit], select_max: int).",
+        "documentation": "prob_run_tuple_list(qprog: QProg, qubit_list: list[qubit], select_max: int).",
+        "data": {
+            "languageId": "script"
+        }
+    },
+    {
+        "name": "prob_run_list",
+        "detail": "prob_run_list(qprog: QProg, qubit_list: list[qubit], select_max: int).",
+        "documentation": "prob_run_list(qprog: QProg, qubit_list: list[qubit], select_max: int).",
+        "data": {
+            "languageId": "script"
+        }
+    },
+    {
+        "name": "PMeasure_no_index",
+        "detail": "PMeasure_no_index(qubit_list: list[qubit]).",
+        "documentation": "PMeasure_no_index(qubit_list: list[qubit]).",
+        "data": {
+            "languageId": "script"
+        }
+    },
+    {
+        "name": "PMeasure",
+        "detail": "PMeasure(qubit_list: list[qubit], select_max: int).",
+        "documentation": "PMeasure(qubit_list: list[qubit], select_max: int).",
+        "data": {
+            "languageId": "script"
+        }
     },
     {
         "name": "QProg",
         "detail": "QProg object.",
         "documentation": "Create an empty QProg object.",
         "data": {
-            "languageId": "qcodes"
-        },
-        "methods": [{
-            "name": "insert",
-            "type": "void",
-            "detail": "Insert into QProg.",
-            "documentation": "Insert into QProg.",
-            "arguments": [{
-                "name": "*args",
-                "type": "QGate"
-            }]
-        }]
-    }]
+            "languageId": "script"
+        }
+    },
+    {
+        "name": "QuantumMachine_type.CPU_SINGLE_THREAD",
+        "detail": "QuantumMachine_type.CPU_SINGLE_THREAD",
+        "documentation": "QuantumMachine_type.CPU_SINGLE_THREAD",
+        "data": {
+            "languageId": "script"
+        }
+    }
+]
 }

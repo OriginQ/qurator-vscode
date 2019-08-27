@@ -12,107 +12,64 @@ Update@2018-10-12
 update comment
 
 */
+/*! \file QProgClockCycle.h */
 #ifndef _QPROG_CLOCK_CYCLE_H
 #define _QPROG_CLOCK_CYCLE_H
-#include "QuantumCircuit/QProgram.h"
+#include "Core/QuantumCircuit/QProgram.h"
+#include "Core/QuantumCircuit/QCircuit.h"
+#include "Core/QuantumCircuit/ControlFlow.h"
+#include "Core/QuantumCircuit/QGate.h"
+#include "Core/QuantumMachine/OriginQuantumMachine.h"
 #include <map>
 QPANDA_BEGIN
+/**
+* @namespace QPanda
+*/
 
-/*
-count QProg clock cycle
+/**
+* @class QProgClockCycle
+* @brief  Count Quantum Program clock cycle
+* @ingroup Utilities
+* @see
+      @code
+            init();
+            auto qubits = qAllocMany(4);
+            auto prog = CreateEmptyQProg();
+            prog << H(qubits[0]) << CNOT(qubits[0], qubits[1])
+                    << iSWAP(qubits[1], qubits[2]) << RX(qubits[3], PI/4);
+            auto time = getQProgClockCycle(prog);
+            std::cout << "clockCycle : " << time << std::endl;
+
+            finalize();
+      @endcode
 */
 class QProgClockCycle
 {
 public:
-    QProgClockCycle(std::map<int, size_t> gate_time);
+    QProgClockCycle(QuantumMachine *qm);
     ~QProgClockCycle();
-
-    /*
-    count clock cycle of QProg
-    param:
-        prog: target QProg
-    return:
-        clock cycle
-
-    Note:
-        None
-    */
+    void traversal(QProg &prog);
+    size_t count();
+private:
     size_t countQProgClockCycle(AbstractQuantumProgram *prog);
-
-    /*
-    count clock cycle of QCurcuit
-    param:
-        circuit: target QCurcuit
-    return:
-        clock cycle
-
-    Note:
-        None
-    */
     size_t countQCircuitClockCycle(AbstractQuantumCircuit *circuit);
-
-    /*
-    count clock cycle of Qwhile
-    param:
-        circuit: target qwhile
-    return:
-        clock cycle
-
-    Note:
-        None
-    */
     size_t countQWhileClockCycle(AbstractControlFlowNode *qwhile);
-
-    /*
-    count clock cycle of QIf
-    param:
-        circuit: target qif
-    return:
-        clock cycle
-
-    Note:
-        None
-    */
     size_t countQIfClockCycle(AbstractControlFlowNode *qif);
 
-    /*
-    get QGate time
-    param:
-        circuit: target QGate
-    return:
-        QGate time
-
-    Note:
-        None
-    */
     size_t getQGateTime(AbstractQGateNode *gate);
-protected:
-    /*
-    count clock cycle of QNode
-    param:
-        circuit: target QNode
-    return:
-        clock cycle
-
-    Note:
-        None
-    */
     size_t countQNodeClockCycle(QNode * node);
-
-    /*
-    count clock cycle of QNode
-    param:
-        circuit: target QNode
-    return:
-        clock cycle
-
-    Note:
-        None
-    */
-    size_t getDefalutQGateTime(int gate_type);
-private:
-    std::map<int, size_t> m_gate_time;
+    size_t getDefalutQGateTime(GateType gate_type);
+    std::map<GateType, size_t> m_gate_time;
+    size_t m_count;
 };
+
+/**
+* @brief  Get quantum program clock cycle
+* @ingroup QuantumMachine
+* @param[in]  QProg& quantum program
+* @return     Eigen::size_t   Clock cycle  result
+*/
+size_t getQProgClockCycle(QProg &prog, QuantumMachine *qm);
 QPANDA_END
 #endif // _QPROG_CLOCK_CYCLE_H
 

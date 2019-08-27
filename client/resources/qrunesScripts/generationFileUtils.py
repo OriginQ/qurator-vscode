@@ -1,51 +1,80 @@
 import os
 import re
-def validate_setting(qrunes_file):
-    """validate setting 
+import platform
+def validate_top(qrunes_file):
+    """validate qcodes 
     - qrunes_file -- filePath
     """
-    startStr = '@settings:'
-    endStr = '@qcodes:'
-    newLi = []
-    info = fetch(startStr,endStr,qrunes_file,newLi)
-    return info
-    # if not info :
-    #     print('Please check the settings language.')
-    #     return ''
-def get_language(qrunes_file):
+    f = open(qrunes_file)
+    info = f.read()
+    f.close()
+    # ss =  re.search('@settings:', info)
+
+
+    count = info.count("@",0,len(info))
+    is_have_se = re.search('@settings:', info)
+    is_have_qc = re.search('@qcodes:', info)
+    is_have_sc = re.search('@script:', info)
+    if count == 2:
+        if is_have_se and is_have_qc:
+            return 'info'
+        else:
+            print('Please check \'@settings: and @qcodes:\' .')
+            return 'error'
+    elif count == 3:
+        if not is_have_se :
+            print('Please check \'@settings:\' .')
+            return 'error'
+        elif not is_have_qc:
+            print('Please check \'@qcodes:\' .')
+            return 'error'
+        elif not is_have_sc:
+            print('Please check \'@script:\' .')
+            return 'error'
+        else :
+            return 'info'
+    else:
+        print('Please check \'Head identification\' .')
+        return 'error'
+def get_language(qrunes_file,is_skew):
     """Acquiring language （python or c++）
     - qrunes_file -- filePath
     """
     startStr = '@settings:'
     endStr = '@qcodes:'
     newLi = []
-    info = fetch(startStr,endStr,qrunes_file,newLi)
+    info = fetch(startStr,endStr,qrunes_file,newLi,is_skew)
     language_type = ''
     for i in info:
-        n = re.findall(r"language", i)
+        n = re.findall(r"language\s{0,}=\s{0,}", i)
         if n:
             language_type = i.split('=')[1].strip('\'";\n ')
-    if not info :
-        return ''
-    elif 'Python' != language_type and 'C++' != language_type:
-        return ''
+    if not language_type :
+        print('Please check configure \'language\' .')
+        return 'error'
+    elif 'python' != language_type.lower() and 'c++' != language_type.lower():
+        print('Please check configure \'language\' .')
+        return 'error'
     else :
-        return language_type
-def get_compile_only(qrunes_file):
+        return language_type.lower()
+def get_compile_only(qrunes_file,is_skew):
     """Acquiring compile （true or false）
     - qrunes_file -- filePath
     """
     startStr = '@settings:'
     endStr = '@qcodes:'
     newLi = []
-    info = fetch(startStr,endStr,qrunes_file,newLi)
-    compile_only = False
+    info = fetch(startStr,endStr,qrunes_file,newLi,is_skew)
+    compile_only = ''
     for i in info:
-        n = re.findall(r"compile_only", i)
+        n = re.findall(r"compile_only\s{0,}=\s{0,}", i)
         if n:
             compile_only = i.split('=')[1].strip('\'";\n ')
-    if not info :
+    if not compile_only :
         return False
+    elif 'False' != compile_only and 'True' != compile_only:
+        print('Please check configure \'compile_only\' .')
+        return 'error'
     else :
         return compile_only
         
@@ -57,41 +86,41 @@ def is_autoimport(qrunes_file):
     startStr = '@settings:'
     endStr = '@qcodes:'
     newLi = []
-    info = fetch(startStr,endStr,qrunes_file,newLi)
-    autoimport = True
+    info = fetch(startStr,endStr,qrunes_file,newLi,True)
+    autoimport = ''
     for i in info:
-        n = re.findall(r"autoimport", i)
+        n = re.findall(r"autoimport\s{0,}=\s{0,}", i)
         if n:
             autoimport = i.split('=')[1].strip('\'";\n ')
-    if not info :
+    if not autoimport :
         return True
+    elif 'False' != autoimport and 'True' != autoimport:
+        print('Please check configure \'autoimport\' .')
+        return 'error'
     else :
         return autoimport
 
-def get_qcodes(qrunes_file):
+def get_qcodes(qrunes_file,is_skew):
     """Get qcodes Code
     - qrunes_file -- filePath
     """
     startStr = '@qcodes:'
     endStr = '@script:'
     newLi = []
-    info = fetch(startStr,endStr,qrunes_file,newLi)
-    if not info :
-        print('Please check the qcodes .')
-        pass
+    info = fetch(startStr,endStr,qrunes_file,newLi,is_skew)
     qcodes_content = ''.join(info)
     return qcodes_content
 
-def get_script(qrunes_file):
+def get_script(qrunes_file,is_skew):
     """Get script Code
     - qrunes_file -- filePath
     """
     startStr = '@script:'
     endStr = '@end'
-    if not fetch(startStr,endStr,qrunes_file,[]) :
+    if not fetch(startStr,endStr,qrunes_file,[],is_skew) :
         return ""
     newLi = []
-    if 'Python' == get_language(qrunes_file):
+    if 'python' == get_language(qrunes_file,True):
         input_arr = get_import_file_name(qrunes_file)
         if input_arr:
             newLi.append('import sys\n')
@@ -105,27 +134,28 @@ def get_script(qrunes_file):
         if is_autoimport(qrunes_file):
             newLi.append('from pyqpanda import *\n')
             newLi.append('from pyqpanda.utils import *\n')
-    if 'C++' == get_language(qrunes_file):
+    if 'c++' == get_language(qrunes_file,True):
         input_arr = get_import_file_name(qrunes_file)
         for import_path in input_arr:
             import_path = os.path.splitext(import_path)[0]
-            newLi.append('#include "'+os.path.dirname(qrunes_file).replace('\\', '\\\\')+'\\\\'+import_path+'_cpp\\\\qcodes.h"\n')
-
+            if 'Windows'==platform.system() :
+                newLi.append('#include "'+os.path.dirname(qrunes_file).replace('\\', '\\\\')+'\\\\'+import_path+'_cpp\\\\qcodes.h"\n')
+            else :
+                newLi.append('#include "'+os.path.dirname(qrunes_file).replace('\\', '\\\\')+os.sep+import_path+'_cpp'+os.sep+'qcodes.h"\n')
         if is_autoimport(qrunes_file):
             newLi.append('#include "qcodes.h"\n')
+            newLi.append('using namespace QPanda;\n')
     
-    info = fetch(startStr,endStr,qrunes_file,newLi)
+    info = fetch(startStr,endStr,qrunes_file,newLi,is_skew)
     script_content = ''.join(info)
     return script_content
 
-def get_sh(qrunes_file,file_generate_path):
-    """Get sh.bat Code
+def get_sh_windows(qrunes_file,file_generate_path):
+    """Get windows sh.bat Code
     - qrunes_file -- filePath
     - file_generate_path -- generate file path
     """
-    # pathQ = os.path.dirname(os.__file__)+'/site-packages/qpanda'
-    # local_path = os.path.dirname(qrunes_file)
-    result  = ('g++ -std=c++14 -fopenmp -I./include/ '
+    result  = ('g++ -w -std=c++14 -fopenmp -I./include/ '
         '-I./include/Core '
         '-I./include/Core/QuantumMachine '
         '-I./include/Core/VirtualQuantumProcessor ' 
@@ -136,11 +166,32 @@ def get_sh(qrunes_file,file_generate_path):
         '-I./include/ThirdParty/bplus-tree/include/ '
         '-I./include/ThirdParty/rapidjson/ '
         'file_generate_path/script.cpp '
-        '-L./lib/ -lQPanda2.0 -lpthread -lTinyXML -lQAlg '
+        '-L./lib_windows/ -lQPanda2 -lpthread -lTinyXML -lQAlg -lVariational '
         '-o file_generate_path/a.exe').replace("file_generate_path",file_generate_path).replace('\\','/')
     return result
 
-def fetch(startStr,endStr,file_path,new_list):
+def get_sh_linux(sep_path,file_generate_path):
+    """Get linux start.sh Code
+    - sep_path -- sep_path
+    - file_generate_path -- generate file path
+    """
+    result  = ('#! /bin/bash\n'
+        'g++ -std=c++14 -fopenmp -Isep_path/include/ '
+        '-Isep_path/include/Core '
+        '-Isep_path/include/Core/QuantumMachine '
+        '-Isep_path/include/Core/VirtualQuantumProcessor ' 
+        '-Isep_path/include/Core/Utilities '
+        '-Isep_path/include/Core/Utilities/Transform '
+        '-Isep_path/include/QAlg -Isep_path/include/ThirdParty '
+        '-Isep_path/include/QAlg -Isep_path/include/ThirdParty/bplus-tree '
+        '-Isep_path/include/ThirdParty/bplus-tree/include/ '
+        '-Isep_path/include/ThirdParty/rapidjson/ '
+        'file_generate_path/script.cpp '
+        '-Lsep_path/lib_linux/ -lQPanda2.0 -lpthread -lTinyXML -lQAlg '
+        '-o file_generate_path/a').replace("file_generate_path",file_generate_path).replace("sep_path",sep_path)
+    return result
+
+def fetch(startStr,endStr,file_path,new_list,is_skew):
     """Get the required chip segments
     - startStr -- Start character
     - endStr -- End character
@@ -159,6 +210,8 @@ def fetch(startStr,endStr,file_path,new_list):
                 else :
                     flag = True
             if flag and (line.strip() != startStr):
+                if (line.find('//') > -1) and is_skew:
+                    line = line[0:line.find('//')]+'\n'
                 new_list.append(line)
     return new_list
 # substr
@@ -189,7 +242,7 @@ def get_import_file_name(qrunes_file):
     startStr = '@qcodes:'
     endStr = '@script:'
     newLi = []
-    info = fetch(startStr,endStr,qrunes_file,newLi)
+    info = fetch(startStr,endStr,qrunes_file,newLi,True)
     import_arr = []
     for i in info:
         n = re.findall(r".qrunes", i)

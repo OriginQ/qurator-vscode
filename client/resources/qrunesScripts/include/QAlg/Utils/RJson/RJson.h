@@ -16,7 +16,7 @@ Object: json's {key: value} format.
 Array : json's [e1, e2, e3] format.
 Value : json's abstract data type, includes Object, Array, int, string
         and so on, is the base class of Object and Array.
-GetStr/GetInt : get the part string value of a json dataï¼Œreturned by the 1st
+GetStr/GetInt : get the part string value of a json data£¬returned by the 1st
         parameter, the last parameter is the parent node value, the middle
         parameters are used to locate the element's position(type is int) or
         assign the corresponding value of the key(type is const char*).
@@ -137,7 +137,7 @@ public:
             const rapidjson::Value* parent)
     {
         const rapidjson::Value* value = nullptr;
-        if (0 == GetValue(&value, tag, parent) && value->IsBool())
+        if (0 == GetValue(&value, tag, parent))
         {
             n = value->GetBool();
             return 0;
@@ -153,7 +153,7 @@ public:
             const rapidjson::Value* parent)
     {
         const rapidjson::Value* value = nullptr;
-        if (0 == GetValue(&value, tag, parent) && value->IsInt())
+        if (0 == GetValue(&value, tag, parent))
         {
             n = value->GetInt();
             return 0;
@@ -169,7 +169,7 @@ public:
             const rapidjson::Value* parent)
     {
         const rapidjson::Value* value = nullptr;
-        if (0 == GetValue(&value, tag, parent) && value->IsDouble())
+        if (0 == GetValue(&value, tag, parent))
         {
             n = value->GetDouble();
             return 0;
@@ -250,7 +250,7 @@ public:
             const rapidjson::Value* parent)
     {
         const rapidjson::Value* value = nullptr;
-        if (0 == GetValue(&value, t1, t2, parent) && value->IsBool())
+        if (0 == GetValue(&value, t1, t2, parent))
         {
             n = value->GetBool();
             return 0;
@@ -267,7 +267,7 @@ public:
             const rapidjson::Value* parent)
     {
         const rapidjson::Value* value = nullptr;
-        if (0 == GetValue(&value, t1, t2, parent) && value->IsInt())
+        if (0 == GetValue(&value, t1, t2, parent))
         {
             n = value->GetInt();
             return 0;
@@ -284,7 +284,7 @@ public:
             const rapidjson::Value* parent)
     {
         const rapidjson::Value* value = nullptr;
-        if (0 == GetValue(&value, t1, t2, parent) && value->IsDouble())
+        if (0 == GetValue(&value, t1, t2, parent))
         {
             n = value->GetDouble();
             return 0;

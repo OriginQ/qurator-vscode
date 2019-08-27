@@ -16,7 +16,7 @@ Created in 2018-09-18
 #include <string>
 #include <vector>
 #include <ostream>
-#include "QPandaNamespace.h"
+#include "Core/Utilities/QPandaNamespace.h"
 QPANDA_BEGIN
 class QString
 {
@@ -77,6 +77,15 @@ public:
 
     size_t size() const { return m_data.size(); }
     bool isEmpty() const { return m_data.empty(); }
+
+    /*
+     * The position of the first character of the first match.
+     * If no matches were found, the function returns string::npos.
+     */
+    size_t find(const QString& sub_str, size_t pos = 0) const
+    {
+        return m_data.find(sub_str.m_data, pos);
+    }
 
     char at(size_t i) const { return m_data.at(i); }
     char operator[](size_t i) const { return m_data[i]; }

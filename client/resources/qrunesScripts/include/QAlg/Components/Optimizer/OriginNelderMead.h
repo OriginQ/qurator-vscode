@@ -13,8 +13,8 @@ Created in 2018-09-06
 #ifndef ORIGINNELDERMEAD_H
 #define ORIGINNELDERMEAD_H
 
-#include "Eigen/Dense"
-#include "AbstractOptimizer.h"
+#include "ThirdParty/Eigen/Dense"
+#include "QAlg/Components/Optimizer/AbstractOptimizer.h"
 
 namespace QPanda
 {
@@ -48,10 +48,10 @@ namespace QPanda
         void dispResult();
         void writeToFile();
     private:
-        double m_rho;       // | œÅ <=> Œ± | para of nelder-mead
-        double m_chi;       // | œá <=> Œ≥ | para of nelder-mead
-        double m_psi;       // | œà <=> Œ≤ | para of nelder-mead
-        double m_sigma;     // | œÉ <=> Œ¥ | para of nelder-mead
+        double m_rho;       // | ¶— <=> ¶¡ | para of nelder-mead
+        double m_chi;       // | ¶÷ <=> ¶√ | para of nelder-mead
+        double m_psi;       // | ¶◊ <=> ¶¬ | para of nelder-mead
+        double m_sigma;     // | ¶“ <=> ¶ƒ | para of nelder-mead
 
         double m_nonzdelt;
         double m_zdelt;

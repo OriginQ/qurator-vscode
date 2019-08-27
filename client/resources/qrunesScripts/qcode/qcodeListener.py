@@ -1,739 +1,622 @@
-# Generated from qcode.g4 by ANTLR 4.7.1
+# Generated from Qcode.g4 by ANTLR 4.7.1
 from antlr4 import *
 if __name__ is not None and "." in __name__:
-    from .qcodeParser import qcodeParser
+    from .QcodeParser import QcodeParser
 else:
-    from qcodeParser import qcodeParser
+    from QcodeParser import QcodeParser
 
-# This class defines a complete listener for a parse tree produced by qcodeParser.
-class qcodeListener(ParseTreeListener):
+# This class defines a complete listener for a parse tree produced by QcodeParser.
+class QcodeListener(ParseTreeListener):
 
-    # Enter a parse tree produced by qcodeParser#qrunes.
-    def enterQrunes(self, ctx:qcodeParser.QrunesContext):
+    # Enter a parse tree produced by QcodeParser#qrunes.
+    def enterQrunes(self, ctx:QcodeParser.QrunesContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#qrunes.
-    def exitQrunes(self, ctx:qcodeParser.QrunesContext):
+    # Exit a parse tree produced by QcodeParser#qrunes.
+    def exitQrunes(self, ctx:QcodeParser.QrunesContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#lang_unit.
-    def enterLang_unit(self, ctx:qcodeParser.Lang_unitContext):
+    # Enter a parse tree produced by QcodeParser#lang_unit.
+    def enterLang_unit(self, ctx:QcodeParser.Lang_unitContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#lang_unit.
-    def exitLang_unit(self, ctx:qcodeParser.Lang_unitContext):
+    # Exit a parse tree produced by QcodeParser#lang_unit.
+    def exitLang_unit(self, ctx:QcodeParser.Lang_unitContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#include_declaration.
-    def enterInclude_declaration(self, ctx:qcodeParser.Include_declarationContext):
+    # Enter a parse tree produced by QcodeParser#declaration.
+    def enterDeclaration(self, ctx:QcodeParser.DeclarationContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#include_declaration.
-    def exitInclude_declaration(self, ctx:qcodeParser.Include_declarationContext):
+    # Exit a parse tree produced by QcodeParser#declaration.
+    def exitDeclaration(self, ctx:QcodeParser.DeclarationContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#include_sign.
-    def enterInclude_sign(self, ctx:qcodeParser.Include_signContext):
+    # Enter a parse tree produced by QcodeParser#include_declaration.
+    def enterInclude_declaration(self, ctx:QcodeParser.Include_declarationContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#include_sign.
-    def exitInclude_sign(self, ctx:qcodeParser.Include_signContext):
+    # Exit a parse tree produced by QcodeParser#include_declaration.
+    def exitInclude_declaration(self, ctx:QcodeParser.Include_declarationContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#postfix.
-    def enterPostfix(self, ctx:qcodeParser.PostfixContext):
+    # Enter a parse tree produced by QcodeParser#include_sign.
+    def enterInclude_sign(self, ctx:QcodeParser.Include_signContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#postfix.
-    def exitPostfix(self, ctx:qcodeParser.PostfixContext):
+    # Exit a parse tree produced by QcodeParser#include_sign.
+    def exitInclude_sign(self, ctx:QcodeParser.Include_signContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#declaration.
-    def enterDeclaration(self, ctx:qcodeParser.DeclarationContext):
+    # Enter a parse tree produced by QcodeParser#variable_declaration.
+    def enterVariable_declaration(self, ctx:QcodeParser.Variable_declarationContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#declaration.
-    def exitDeclaration(self, ctx:qcodeParser.DeclarationContext):
+    # Exit a parse tree produced by QcodeParser#variable_declaration.
+    def exitVariable_declaration(self, ctx:QcodeParser.Variable_declarationContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#literal_declaration.
-    def enterLiteral_declaration(self, ctx:qcodeParser.Literal_declarationContext):
+    # Enter a parse tree produced by QcodeParser#parameter_declaration.
+    def enterParameter_declaration(self, ctx:QcodeParser.Parameter_declarationContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#literal_declaration.
-    def exitLiteral_declaration(self, ctx:qcodeParser.Literal_declarationContext):
+    # Exit a parse tree produced by QcodeParser#parameter_declaration.
+    def exitParameter_declaration(self, ctx:QcodeParser.Parameter_declarationContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#declaration_Specifier.
-    def enterDeclaration_Specifier(self, ctx:qcodeParser.Declaration_SpecifierContext):
+    # Enter a parse tree produced by QcodeParser#parameter_specifier.
+    def enterParameter_specifier(self, ctx:QcodeParser.Parameter_specifierContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#declaration_Specifier.
-    def exitDeclaration_Specifier(self, ctx:qcodeParser.Declaration_SpecifierContext):
+    # Exit a parse tree produced by QcodeParser#parameter_specifier.
+    def exitParameter_specifier(self, ctx:QcodeParser.Parameter_specifierContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#literal_type.
-    def enterLiteral_type(self, ctx:qcodeParser.Literal_typeContext):
+    # Enter a parse tree produced by QcodeParser#quantum_alg_built_in_type.
+    def enterQuantum_alg_built_in_type(self, ctx:QcodeParser.Quantum_alg_built_in_typeContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#literal_type.
-    def exitLiteral_type(self, ctx:qcodeParser.Literal_typeContext):
+    # Exit a parse tree produced by QcodeParser#quantum_alg_built_in_type.
+    def exitQuantum_alg_built_in_type(self, ctx:QcodeParser.Quantum_alg_built_in_typeContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#primary_type.
-    def enterPrimary_type(self, ctx:qcodeParser.Primary_typeContext):
+    # Enter a parse tree produced by QcodeParser#auxiliary_primary_type.
+    def enterAuxiliary_primary_type(self, ctx:QcodeParser.Auxiliary_primary_typeContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#primary_type.
-    def exitPrimary_type(self, ctx:qcodeParser.Primary_typeContext):
+    # Exit a parse tree produced by QcodeParser#auxiliary_primary_type.
+    def exitAuxiliary_primary_type(self, ctx:QcodeParser.Auxiliary_primary_typeContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#quantum_type.
-    def enterQuantum_type(self, ctx:qcodeParser.Quantum_typeContext):
+    # Enter a parse tree produced by QcodeParser#quantum_circuit_type.
+    def enterQuantum_circuit_type(self, ctx:QcodeParser.Quantum_circuit_typeContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#quantum_type.
-    def exitQuantum_type(self, ctx:qcodeParser.Quantum_typeContext):
+    # Exit a parse tree produced by QcodeParser#quantum_circuit_type.
+    def exitQuantum_circuit_type(self, ctx:QcodeParser.Quantum_circuit_typeContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#assist_classical_type.
-    def enterAssist_classical_type(self, ctx:qcodeParser.Assist_classical_typeContext):
+    # Enter a parse tree produced by QcodeParser#quantum_prog_type.
+    def enterQuantum_prog_type(self, ctx:QcodeParser.Quantum_prog_typeContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#assist_classical_type.
-    def exitAssist_classical_type(self, ctx:qcodeParser.Assist_classical_typeContext):
+    # Exit a parse tree produced by QcodeParser#quantum_prog_type.
+    def exitQuantum_prog_type(self, ctx:QcodeParser.Quantum_prog_typeContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#init_DeclaratorList.
-    def enterInit_DeclaratorList(self, ctx:qcodeParser.Init_DeclaratorListContext):
+    # Enter a parse tree produced by QcodeParser#quantum_primary_type.
+    def enterQuantum_primary_type(self, ctx:QcodeParser.Quantum_primary_typeContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#init_DeclaratorList.
-    def exitInit_DeclaratorList(self, ctx:qcodeParser.Init_DeclaratorListContext):
+    # Exit a parse tree produced by QcodeParser#quantum_primary_type.
+    def exitQuantum_primary_type(self, ctx:QcodeParser.Quantum_primary_typeContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#init_Literal_DeclaratorList.
-    def enterInit_Literal_DeclaratorList(self, ctx:qcodeParser.Init_Literal_DeclaratorListContext):
+    # Enter a parse tree produced by QcodeParser#classical_primary_type.
+    def enterClassical_primary_type(self, ctx:QcodeParser.Classical_primary_typeContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#init_Literal_DeclaratorList.
-    def exitInit_Literal_DeclaratorList(self, ctx:qcodeParser.Init_Literal_DeclaratorListContext):
+    # Exit a parse tree produced by QcodeParser#classical_primary_type.
+    def exitClassical_primary_type(self, ctx:QcodeParser.Classical_primary_typeContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#init_Declarator.
-    def enterInit_Declarator(self, ctx:qcodeParser.Init_DeclaratorContext):
+    # Enter a parse tree produced by QcodeParser#array_construct_type.
+    def enterArray_construct_type(self, ctx:QcodeParser.Array_construct_typeContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#init_Declarator.
-    def exitInit_Declarator(self, ctx:qcodeParser.Init_DeclaratorContext):
+    # Exit a parse tree produced by QcodeParser#array_construct_type.
+    def exitArray_construct_type(self, ctx:QcodeParser.Array_construct_typeContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#init_Literal_Declarator.
-    def enterInit_Literal_Declarator(self, ctx:qcodeParser.Init_Literal_DeclaratorContext):
+    # Enter a parse tree produced by QcodeParser#construct_primary_type.
+    def enterConstruct_primary_type(self, ctx:QcodeParser.Construct_primary_typeContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#init_Literal_Declarator.
-    def exitInit_Literal_Declarator(self, ctx:qcodeParser.Init_Literal_DeclaratorContext):
+    # Exit a parse tree produced by QcodeParser#construct_primary_type.
+    def exitConstruct_primary_type(self, ctx:QcodeParser.Construct_primary_typeContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#declarator.
-    def enterDeclarator(self, ctx:qcodeParser.DeclaratorContext):
+    # Enter a parse tree produced by QcodeParser#call_back_construct_type.
+    def enterCall_back_construct_type(self, ctx:QcodeParser.Call_back_construct_typeContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#declarator.
-    def exitDeclarator(self, ctx:qcodeParser.DeclaratorContext):
+    # Exit a parse tree produced by QcodeParser#call_back_construct_type.
+    def exitCall_back_construct_type(self, ctx:QcodeParser.Call_back_construct_typeContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#assignment_exp.
-    def enterAssignment_exp(self, ctx:qcodeParser.Assignment_expContext):
+    # Enter a parse tree produced by QcodeParser#call_back_primary_type_list.
+    def enterCall_back_primary_type_list(self, ctx:QcodeParser.Call_back_primary_type_listContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#assignment_exp.
-    def exitAssignment_exp(self, ctx:qcodeParser.Assignment_expContext):
+    # Exit a parse tree produced by QcodeParser#call_back_primary_type_list.
+    def exitCall_back_primary_type_list(self, ctx:QcodeParser.Call_back_primary_type_listContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#assignment_operator.
-    def enterAssignment_operator(self, ctx:qcodeParser.Assignment_operatorContext):
+    # Enter a parse tree produced by QcodeParser#call_back_primary_type.
+    def enterCall_back_primary_type(self, ctx:QcodeParser.Call_back_primary_typeContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#assignment_operator.
-    def exitAssignment_operator(self, ctx:qcodeParser.Assignment_operatorContext):
+    # Exit a parse tree produced by QcodeParser#call_back_primary_type.
+    def exitCall_back_primary_type(self, ctx:QcodeParser.Call_back_primary_typeContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#condition_exp.
-    def enterCondition_exp(self, ctx:qcodeParser.Condition_expContext):
+    # Enter a parse tree produced by QcodeParser#declaration_variable.
+    def enterDeclaration_variable(self, ctx:QcodeParser.Declaration_variableContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#condition_exp.
-    def exitCondition_exp(self, ctx:qcodeParser.Condition_expContext):
+    # Exit a parse tree produced by QcodeParser#declaration_variable.
+    def exitDeclaration_variable(self, ctx:QcodeParser.Declaration_variableContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#expression.
-    def enterExpression(self, ctx:qcodeParser.ExpressionContext):
+    # Enter a parse tree produced by QcodeParser#variable_decl_specifier.
+    def enterVariable_decl_specifier(self, ctx:QcodeParser.Variable_decl_specifierContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#expression.
-    def exitExpression(self, ctx:qcodeParser.ExpressionContext):
+    # Exit a parse tree produced by QcodeParser#variable_decl_specifier.
+    def exitVariable_decl_specifier(self, ctx:QcodeParser.Variable_decl_specifierContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#logicOr_exp.
-    def enterLogicOr_exp(self, ctx:qcodeParser.LogicOr_expContext):
+    # Enter a parse tree produced by QcodeParser#common_specifier.
+    def enterCommon_specifier(self, ctx:QcodeParser.Common_specifierContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#logicOr_exp.
-    def exitLogicOr_exp(self, ctx:qcodeParser.LogicOr_expContext):
+    # Exit a parse tree produced by QcodeParser#common_specifier.
+    def exitCommon_specifier(self, ctx:QcodeParser.Common_specifierContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#logicAnd_exp.
-    def enterLogicAnd_exp(self, ctx:qcodeParser.LogicAnd_expContext):
+    # Enter a parse tree produced by QcodeParser#init_declaratorlist.
+    def enterInit_declaratorlist(self, ctx:QcodeParser.Init_declaratorlistContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#logicAnd_exp.
-    def exitLogicAnd_exp(self, ctx:qcodeParser.LogicAnd_expContext):
+    # Exit a parse tree produced by QcodeParser#init_declaratorlist.
+    def exitInit_declaratorlist(self, ctx:QcodeParser.Init_declaratorlistContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#inclu_exp.
-    def enterInclu_exp(self, ctx:qcodeParser.Inclu_expContext):
+    # Enter a parse tree produced by QcodeParser#variable_declarator.
+    def enterVariable_declarator(self, ctx:QcodeParser.Variable_declaratorContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#inclu_exp.
-    def exitInclu_exp(self, ctx:qcodeParser.Inclu_expContext):
+    # Exit a parse tree produced by QcodeParser#variable_declarator.
+    def exitVariable_declarator(self, ctx:QcodeParser.Variable_declaratorContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#exclu_exp.
-    def enterExclu_exp(self, ctx:qcodeParser.Exclu_expContext):
+    # Enter a parse tree produced by QcodeParser#variableInitializer.
+    def enterVariableInitializer(self, ctx:QcodeParser.VariableInitializerContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#exclu_exp.
-    def exitExclu_exp(self, ctx:qcodeParser.Exclu_expContext):
+    # Exit a parse tree produced by QcodeParser#variableInitializer.
+    def exitVariableInitializer(self, ctx:QcodeParser.VariableInitializerContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#and_exp.
-    def enterAnd_exp(self, ctx:qcodeParser.And_expContext):
+    # Enter a parse tree produced by QcodeParser#function_declaration.
+    def enterFunction_declaration(self, ctx:QcodeParser.Function_declarationContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#and_exp.
-    def exitAnd_exp(self, ctx:qcodeParser.And_expContext):
+    # Exit a parse tree produced by QcodeParser#function_declaration.
+    def exitFunction_declaration(self, ctx:QcodeParser.Function_declarationContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#equal_exp.
-    def enterEqual_exp(self, ctx:qcodeParser.Equal_expContext):
+    # Enter a parse tree produced by QcodeParser#declarate_function.
+    def enterDeclarate_function(self, ctx:QcodeParser.Declarate_functionContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#equal_exp.
-    def exitEqual_exp(self, ctx:qcodeParser.Equal_expContext):
+    # Exit a parse tree produced by QcodeParser#declarate_function.
+    def exitDeclarate_function(self, ctx:QcodeParser.Declarate_functionContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#relation_exp.
-    def enterRelation_exp(self, ctx:qcodeParser.Relation_expContext):
+    # Enter a parse tree produced by QcodeParser#function_return_type_declarator.
+    def enterFunction_return_type_declarator(self, ctx:QcodeParser.Function_return_type_declaratorContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#relation_exp.
-    def exitRelation_exp(self, ctx:qcodeParser.Relation_expContext):
+    # Exit a parse tree produced by QcodeParser#function_return_type_declarator.
+    def exitFunction_return_type_declarator(self, ctx:QcodeParser.Function_return_type_declaratorContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#shift_exp.
-    def enterShift_exp(self, ctx:qcodeParser.Shift_expContext):
+    # Enter a parse tree produced by QcodeParser#function_declarator.
+    def enterFunction_declarator(self, ctx:QcodeParser.Function_declaratorContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#shift_exp.
-    def exitShift_exp(self, ctx:qcodeParser.Shift_expContext):
+    # Exit a parse tree produced by QcodeParser#function_declarator.
+    def exitFunction_declarator(self, ctx:QcodeParser.Function_declaratorContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#additive_exp.
-    def enterAdditive_exp(self, ctx:qcodeParser.Additive_expContext):
+    # Enter a parse tree produced by QcodeParser#function_name.
+    def enterFunction_name(self, ctx:QcodeParser.Function_nameContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#additive_exp.
-    def exitAdditive_exp(self, ctx:qcodeParser.Additive_expContext):
+    # Exit a parse tree produced by QcodeParser#function_name.
+    def exitFunction_name(self, ctx:QcodeParser.Function_nameContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#multi_exp.
-    def enterMulti_exp(self, ctx:qcodeParser.Multi_expContext):
+    # Enter a parse tree produced by QcodeParser#parameter_decl_list.
+    def enterParameter_decl_list(self, ctx:QcodeParser.Parameter_decl_listContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#multi_exp.
-    def exitMulti_exp(self, ctx:qcodeParser.Multi_expContext):
+    # Exit a parse tree produced by QcodeParser#parameter_decl_list.
+    def exitParameter_decl_list(self, ctx:QcodeParser.Parameter_decl_listContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#cast_exp.
-    def enterCast_exp(self, ctx:qcodeParser.Cast_expContext):
+    # Enter a parse tree produced by QcodeParser#expression_list.
+    def enterExpression_list(self, ctx:QcodeParser.Expression_listContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#cast_exp.
-    def exitCast_exp(self, ctx:qcodeParser.Cast_expContext):
+    # Exit a parse tree produced by QcodeParser#expression_list.
+    def exitExpression_list(self, ctx:QcodeParser.Expression_listContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#unary_exp.
-    def enterUnary_exp(self, ctx:qcodeParser.Unary_expContext):
+    # Enter a parse tree produced by QcodeParser#vector_expression.
+    def enterVector_expression(self, ctx:QcodeParser.Vector_expressionContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#unary_exp.
-    def exitUnary_exp(self, ctx:qcodeParser.Unary_expContext):
+    # Exit a parse tree produced by QcodeParser#vector_expression.
+    def exitVector_expression(self, ctx:QcodeParser.Vector_expressionContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#unary_operator.
-    def enterUnary_operator(self, ctx:qcodeParser.Unary_operatorContext):
+    # Enter a parse tree produced by QcodeParser#vector_slice.
+    def enterVector_slice(self, ctx:QcodeParser.Vector_sliceContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#unary_operator.
-    def exitUnary_operator(self, ctx:qcodeParser.Unary_operatorContext):
+    # Exit a parse tree produced by QcodeParser#vector_slice.
+    def exitVector_slice(self, ctx:QcodeParser.Vector_sliceContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#postfix_exp.
-    def enterPostfix_exp(self, ctx:qcodeParser.Postfix_expContext):
+    # Enter a parse tree produced by QcodeParser#single_expression.
+    def enterSingle_expression(self, ctx:QcodeParser.Single_expressionContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#postfix_exp.
-    def exitPostfix_exp(self, ctx:qcodeParser.Postfix_expContext):
+    # Exit a parse tree produced by QcodeParser#single_expression.
+    def exitSingle_expression(self, ctx:QcodeParser.Single_expressionContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#argument_exp_List.
-    def enterArgument_exp_List(self, ctx:qcodeParser.Argument_exp_ListContext):
+    # Enter a parse tree produced by QcodeParser#lambda_exp.
+    def enterLambda_exp(self, ctx:QcodeParser.Lambda_expContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#argument_exp_List.
-    def exitArgument_exp_List(self, ctx:qcodeParser.Argument_exp_ListContext):
+    # Exit a parse tree produced by QcodeParser#lambda_exp.
+    def exitLambda_exp(self, ctx:QcodeParser.Lambda_expContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#primary_exp.
-    def enterPrimary_exp(self, ctx:qcodeParser.Primary_expContext):
+    # Enter a parse tree produced by QcodeParser#lambda_body.
+    def enterLambda_body(self, ctx:QcodeParser.Lambda_bodyContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#primary_exp.
-    def exitPrimary_exp(self, ctx:qcodeParser.Primary_expContext):
+    # Exit a parse tree produced by QcodeParser#lambda_body.
+    def exitLambda_body(self, ctx:QcodeParser.Lambda_bodyContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#args_type_List.
-    def enterArgs_type_List(self, ctx:qcodeParser.Args_type_ListContext):
+    # Enter a parse tree produced by QcodeParser#additive_op.
+    def enterAdditive_op(self, ctx:QcodeParser.Additive_opContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#args_type_List.
-    def exitArgs_type_List(self, ctx:qcodeParser.Args_type_ListContext):
+    # Exit a parse tree produced by QcodeParser#additive_op.
+    def exitAdditive_op(self, ctx:QcodeParser.Additive_opContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#args_declaration.
-    def enterArgs_declaration(self, ctx:qcodeParser.Args_declarationContext):
+    # Enter a parse tree produced by QcodeParser#multiplicative_op.
+    def enterMultiplicative_op(self, ctx:QcodeParser.Multiplicative_opContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#args_declaration.
-    def exitArgs_declaration(self, ctx:qcodeParser.Args_declarationContext):
+    # Exit a parse tree produced by QcodeParser#multiplicative_op.
+    def exitMultiplicative_op(self, ctx:QcodeParser.Multiplicative_opContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#initializer.
-    def enterInitializer(self, ctx:qcodeParser.InitializerContext):
+    # Enter a parse tree produced by QcodeParser#shift_op.
+    def enterShift_op(self, ctx:QcodeParser.Shift_opContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#initializer.
-    def exitInitializer(self, ctx:qcodeParser.InitializerContext):
+    # Exit a parse tree produced by QcodeParser#shift_op.
+    def exitShift_op(self, ctx:QcodeParser.Shift_opContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#initializerList.
-    def enterInitializerList(self, ctx:qcodeParser.InitializerListContext):
+    # Enter a parse tree produced by QcodeParser#assign_op.
+    def enterAssign_op(self, ctx:QcodeParser.Assign_opContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#initializerList.
-    def exitInitializerList(self, ctx:qcodeParser.InitializerListContext):
+    # Exit a parse tree produced by QcodeParser#assign_op.
+    def exitAssign_op(self, ctx:QcodeParser.Assign_opContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#designation.
-    def enterDesignation(self, ctx:qcodeParser.DesignationContext):
+    # Enter a parse tree produced by QcodeParser#equal_op.
+    def enterEqual_op(self, ctx:QcodeParser.Equal_opContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#designation.
-    def exitDesignation(self, ctx:qcodeParser.DesignationContext):
+    # Exit a parse tree produced by QcodeParser#equal_op.
+    def exitEqual_op(self, ctx:QcodeParser.Equal_opContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#designatorList.
-    def enterDesignatorList(self, ctx:qcodeParser.DesignatorListContext):
+    # Enter a parse tree produced by QcodeParser#relationship_op.
+    def enterRelationship_op(self, ctx:QcodeParser.Relationship_opContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#designatorList.
-    def exitDesignatorList(self, ctx:qcodeParser.DesignatorListContext):
+    # Exit a parse tree produced by QcodeParser#relationship_op.
+    def exitRelationship_op(self, ctx:QcodeParser.Relationship_opContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#designator.
-    def enterDesignator(self, ctx:qcodeParser.DesignatorContext):
+    # Enter a parse tree produced by QcodeParser#logic_op.
+    def enterLogic_op(self, ctx:QcodeParser.Logic_opContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#designator.
-    def exitDesignator(self, ctx:qcodeParser.DesignatorContext):
+    # Exit a parse tree produced by QcodeParser#logic_op.
+    def exitLogic_op(self, ctx:QcodeParser.Logic_opContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#constant_exp.
-    def enterConstant_exp(self, ctx:qcodeParser.Constant_expContext):
+    # Enter a parse tree produced by QcodeParser#unary_op.
+    def enterUnary_op(self, ctx:QcodeParser.Unary_opContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#constant_exp.
-    def exitConstant_exp(self, ctx:qcodeParser.Constant_expContext):
+    # Exit a parse tree produced by QcodeParser#unary_op.
+    def exitUnary_op(self, ctx:QcodeParser.Unary_opContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#func_declaration.
-    def enterFunc_declaration(self, ctx:qcodeParser.Func_declarationContext):
+    # Enter a parse tree produced by QcodeParser#statement.
+    def enterStatement(self, ctx:QcodeParser.StatementContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#func_declaration.
-    def exitFunc_declaration(self, ctx:qcodeParser.Func_declarationContext):
+    # Exit a parse tree produced by QcodeParser#statement.
+    def exitStatement(self, ctx:QcodeParser.StatementContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#func_declarator.
-    def enterFunc_declarator(self, ctx:qcodeParser.Func_declaratorContext):
+    # Enter a parse tree produced by QcodeParser#while_statement.
+    def enterWhile_statement(self, ctx:QcodeParser.While_statementContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#func_declarator.
-    def exitFunc_declarator(self, ctx:qcodeParser.Func_declaratorContext):
+    # Exit a parse tree produced by QcodeParser#while_statement.
+    def exitWhile_statement(self, ctx:QcodeParser.While_statementContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#func_definition.
-    def enterFunc_definition(self, ctx:qcodeParser.Func_definitionContext):
+    # Enter a parse tree produced by QcodeParser#return_statement.
+    def enterReturn_statement(self, ctx:QcodeParser.Return_statementContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#func_definition.
-    def exitFunc_definition(self, ctx:qcodeParser.Func_definitionContext):
+    # Exit a parse tree produced by QcodeParser#return_statement.
+    def exitReturn_statement(self, ctx:QcodeParser.Return_statementContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#declarationList.
-    def enterDeclarationList(self, ctx:qcodeParser.DeclarationListContext):
+    # Enter a parse tree produced by QcodeParser#qif_statement.
+    def enterQif_statement(self, ctx:QcodeParser.Qif_statementContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#declarationList.
-    def exitDeclarationList(self, ctx:qcodeParser.DeclarationListContext):
+    # Exit a parse tree produced by QcodeParser#qif_statement.
+    def exitQif_statement(self, ctx:QcodeParser.Qif_statementContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#comp_stmt.
-    def enterComp_stmt(self, ctx:qcodeParser.Comp_stmtContext):
+    # Enter a parse tree produced by QcodeParser#qif_true_branch.
+    def enterQif_true_branch(self, ctx:QcodeParser.Qif_true_branchContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#comp_stmt.
-    def exitComp_stmt(self, ctx:qcodeParser.Comp_stmtContext):
+    # Exit a parse tree produced by QcodeParser#qif_true_branch.
+    def exitQif_true_branch(self, ctx:QcodeParser.Qif_true_branchContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#block_List.
-    def enterBlock_List(self, ctx:qcodeParser.Block_ListContext):
+    # Enter a parse tree produced by QcodeParser#qif_false_branch.
+    def enterQif_false_branch(self, ctx:QcodeParser.Qif_false_branchContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#block_List.
-    def exitBlock_List(self, ctx:qcodeParser.Block_ListContext):
+    # Exit a parse tree produced by QcodeParser#qif_false_branch.
+    def exitQif_false_branch(self, ctx:QcodeParser.Qif_false_branchContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#block_Item.
-    def enterBlock_Item(self, ctx:qcodeParser.Block_ItemContext):
+    # Enter a parse tree produced by QcodeParser#qwhile_statement.
+    def enterQwhile_statement(self, ctx:QcodeParser.Qwhile_statementContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#block_Item.
-    def exitBlock_Item(self, ctx:qcodeParser.Block_ItemContext):
+    # Exit a parse tree produced by QcodeParser#qwhile_statement.
+    def exitQwhile_statement(self, ctx:QcodeParser.Qwhile_statementContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#statement.
-    def enterStatement(self, ctx:qcodeParser.StatementContext):
+    # Enter a parse tree produced by QcodeParser#expression_statement.
+    def enterExpression_statement(self, ctx:QcodeParser.Expression_statementContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#statement.
-    def exitStatement(self, ctx:qcodeParser.StatementContext):
+    # Exit a parse tree produced by QcodeParser#expression_statement.
+    def exitExpression_statement(self, ctx:QcodeParser.Expression_statementContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#exp_stmt.
-    def enterExp_stmt(self, ctx:qcodeParser.Exp_stmtContext):
+    # Enter a parse tree produced by QcodeParser#empty_statement.
+    def enterEmpty_statement(self, ctx:QcodeParser.Empty_statementContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#exp_stmt.
-    def exitExp_stmt(self, ctx:qcodeParser.Exp_stmtContext):
+    # Exit a parse tree produced by QcodeParser#empty_statement.
+    def exitEmpty_statement(self, ctx:QcodeParser.Empty_statementContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#select_stmt.
-    def enterSelect_stmt(self, ctx:qcodeParser.Select_stmtContext):
+    # Enter a parse tree produced by QcodeParser#declaration_variable_statement.
+    def enterDeclaration_variable_statement(self, ctx:QcodeParser.Declaration_variable_statementContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#select_stmt.
-    def exitSelect_stmt(self, ctx:qcodeParser.Select_stmtContext):
+    # Exit a parse tree produced by QcodeParser#declaration_variable_statement.
+    def exitDeclaration_variable_statement(self, ctx:QcodeParser.Declaration_variable_statementContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#iterate_stmt.
-    def enterIterate_stmt(self, ctx:qcodeParser.Iterate_stmtContext):
+    # Enter a parse tree produced by QcodeParser#compound_statement.
+    def enterCompound_statement(self, ctx:QcodeParser.Compound_statementContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#iterate_stmt.
-    def exitIterate_stmt(self, ctx:qcodeParser.Iterate_stmtContext):
+    # Exit a parse tree produced by QcodeParser#compound_statement.
+    def exitCompound_statement(self, ctx:QcodeParser.Compound_statementContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#for_stmt.
-    def enterFor_stmt(self, ctx:qcodeParser.For_stmtContext):
+    # Enter a parse tree produced by QcodeParser#select_statement.
+    def enterSelect_statement(self, ctx:QcodeParser.Select_statementContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#for_stmt.
-    def exitFor_stmt(self, ctx:qcodeParser.For_stmtContext):
+    # Exit a parse tree produced by QcodeParser#select_statement.
+    def exitSelect_statement(self, ctx:QcodeParser.Select_statementContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#for_start.
-    def enterFor_start(self, ctx:qcodeParser.For_startContext):
+    # Enter a parse tree produced by QcodeParser#iterate_statement.
+    def enterIterate_statement(self, ctx:QcodeParser.Iterate_statementContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#for_start.
-    def exitFor_start(self, ctx:qcodeParser.For_startContext):
+    # Exit a parse tree produced by QcodeParser#iterate_statement.
+    def exitIterate_statement(self, ctx:QcodeParser.Iterate_statementContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#for_step.
-    def enterFor_step(self, ctx:qcodeParser.For_stepContext):
+    # Enter a parse tree produced by QcodeParser#for_stmt.
+    def enterFor_stmt(self, ctx:QcodeParser.For_stmtContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#for_step.
-    def exitFor_step(self, ctx:qcodeParser.For_stepContext):
+    # Exit a parse tree produced by QcodeParser#for_stmt.
+    def exitFor_stmt(self, ctx:QcodeParser.For_stmtContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#for_end.
-    def enterFor_end(self, ctx:qcodeParser.For_endContext):
+    # Enter a parse tree produced by QcodeParser#for_step.
+    def enterFor_step(self, ctx:QcodeParser.For_stepContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#for_end.
-    def exitFor_end(self, ctx:qcodeParser.For_endContext):
+    # Exit a parse tree produced by QcodeParser#for_step.
+    def exitFor_step(self, ctx:QcodeParser.For_stepContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#quantum_gate_stmt.
-    def enterQuantum_gate_stmt(self, ctx:qcodeParser.Quantum_gate_stmtContext):
+    # Enter a parse tree produced by QcodeParser#for_condition.
+    def enterFor_condition(self, ctx:QcodeParser.For_conditionContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#quantum_gate_stmt.
-    def exitQuantum_gate_stmt(self, ctx:qcodeParser.Quantum_gate_stmtContext):
+    # Exit a parse tree produced by QcodeParser#for_condition.
+    def exitFor_condition(self, ctx:QcodeParser.For_conditionContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#quantum_gate_operation.
-    def enterQuantum_gate_operation(self, ctx:qcodeParser.Quantum_gate_operationContext):
+    # Enter a parse tree produced by QcodeParser#for_start.
+    def enterFor_start(self, ctx:QcodeParser.For_startContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#quantum_gate_operation.
-    def exitQuantum_gate_operation(self, ctx:qcodeParser.Quantum_gate_operationContext):
+    # Exit a parse tree produced by QcodeParser#for_start.
+    def exitFor_start(self, ctx:QcodeParser.For_startContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#four_angle_args.
-    def enterFour_angle_args(self, ctx:qcodeParser.Four_angle_argsContext):
+    # Enter a parse tree produced by QcodeParser#inhanced_for_stmt.
+    def enterInhanced_for_stmt(self, ctx:QcodeParser.Inhanced_for_stmtContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#four_angle_args.
-    def exitFour_angle_args(self, ctx:qcodeParser.Four_angle_argsContext):
+    # Exit a parse tree produced by QcodeParser#inhanced_for_stmt.
+    def exitInhanced_for_stmt(self, ctx:QcodeParser.Inhanced_for_stmtContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#alpha.
-    def enterAlpha(self, ctx:qcodeParser.AlphaContext):
+    # Enter a parse tree produced by QcodeParser#statement_list.
+    def enterStatement_list(self, ctx:QcodeParser.Statement_listContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#alpha.
-    def exitAlpha(self, ctx:qcodeParser.AlphaContext):
+    # Exit a parse tree produced by QcodeParser#statement_list.
+    def exitStatement_list(self, ctx:QcodeParser.Statement_listContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#beta.
-    def enterBeta(self, ctx:qcodeParser.BetaContext):
+    # Enter a parse tree produced by QcodeParser#function_definition.
+    def enterFunction_definition(self, ctx:QcodeParser.Function_definitionContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#beta.
-    def exitBeta(self, ctx:qcodeParser.BetaContext):
+    # Exit a parse tree produced by QcodeParser#function_definition.
+    def exitFunction_definition(self, ctx:QcodeParser.Function_definitionContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#gamma.
-    def enterGamma(self, ctx:qcodeParser.GammaContext):
+    # Enter a parse tree produced by QcodeParser#function_body.
+    def enterFunction_body(self, ctx:QcodeParser.Function_bodyContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#gamma.
-    def exitGamma(self, ctx:qcodeParser.GammaContext):
+    # Exit a parse tree produced by QcodeParser#function_body.
+    def exitFunction_body(self, ctx:QcodeParser.Function_bodyContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#delta.
-    def enterDelta(self, ctx:qcodeParser.DeltaContext):
+    # Enter a parse tree produced by QcodeParser#key_words.
+    def enterKey_words(self, ctx:QcodeParser.Key_wordsContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#delta.
-    def exitDelta(self, ctx:qcodeParser.DeltaContext):
+    # Exit a parse tree produced by QcodeParser#key_words.
+    def exitKey_words(self, ctx:QcodeParser.Key_wordsContext):
         pass
 
 
-    # Enter a parse tree produced by qcodeParser#theta.
-    def enterTheta(self, ctx:qcodeParser.ThetaContext):
+    # Enter a parse tree produced by QcodeParser#constant.
+    def enterConstant(self, ctx:QcodeParser.ConstantContext):
         pass
 
-    # Exit a parse tree produced by qcodeParser#theta.
-    def exitTheta(self, ctx:qcodeParser.ThetaContext):
-        pass
-
-
-    # Enter a parse tree produced by qcodeParser#control_gate_exp.
-    def enterControl_gate_exp(self, ctx:qcodeParser.Control_gate_expContext):
-        pass
-
-    # Exit a parse tree produced by qcodeParser#control_gate_exp.
-    def exitControl_gate_exp(self, ctx:qcodeParser.Control_gate_expContext):
-        pass
-
-
-    # Enter a parse tree produced by qcodeParser#double_gate_exp.
-    def enterDouble_gate_exp(self, ctx:qcodeParser.Double_gate_expContext):
-        pass
-
-    # Exit a parse tree produced by qcodeParser#double_gate_exp.
-    def exitDouble_gate_exp(self, ctx:qcodeParser.Double_gate_expContext):
-        pass
-
-
-    # Enter a parse tree produced by qcodeParser#target_gate_exp.
-    def enterTarget_gate_exp(self, ctx:qcodeParser.Target_gate_expContext):
-        pass
-
-    # Exit a parse tree produced by qcodeParser#target_gate_exp.
-    def exitTarget_gate_exp(self, ctx:qcodeParser.Target_gate_expContext):
-        pass
-
-
-    # Enter a parse tree produced by qcodeParser#measurement_stmt.
-    def enterMeasurement_stmt(self, ctx:qcodeParser.Measurement_stmtContext):
-        pass
-
-    # Exit a parse tree produced by qcodeParser#measurement_stmt.
-    def exitMeasurement_stmt(self, ctx:qcodeParser.Measurement_stmtContext):
-        pass
-
-
-    # Enter a parse tree produced by qcodeParser#accept_cbit_stmt.
-    def enterAccept_cbit_stmt(self, ctx:qcodeParser.Accept_cbit_stmtContext):
-        pass
-
-    # Exit a parse tree produced by qcodeParser#accept_cbit_stmt.
-    def exitAccept_cbit_stmt(self, ctx:qcodeParser.Accept_cbit_stmtContext):
-        pass
-
-
-    # Enter a parse tree produced by qcodeParser#q_if_operation.
-    def enterQ_if_operation(self, ctx:qcodeParser.Q_if_operationContext):
-        pass
-
-    # Exit a parse tree produced by qcodeParser#q_if_operation.
-    def exitQ_if_operation(self, ctx:qcodeParser.Q_if_operationContext):
-        pass
-
-
-    # Enter a parse tree produced by qcodeParser#q_if_stmt.
-    def enterQ_if_stmt(self, ctx:qcodeParser.Q_if_stmtContext):
-        pass
-
-    # Exit a parse tree produced by qcodeParser#q_if_stmt.
-    def exitQ_if_stmt(self, ctx:qcodeParser.Q_if_stmtContext):
-        pass
-
-
-    # Enter a parse tree produced by qcodeParser#q_if_stmt_item.
-    def enterQ_if_stmt_item(self, ctx:qcodeParser.Q_if_stmt_itemContext):
-        pass
-
-    # Exit a parse tree produced by qcodeParser#q_if_stmt_item.
-    def exitQ_if_stmt_item(self, ctx:qcodeParser.Q_if_stmt_itemContext):
-        pass
-
-
-    # Enter a parse tree produced by qcodeParser#q_while_operation.
-    def enterQ_while_operation(self, ctx:qcodeParser.Q_while_operationContext):
-        pass
-
-    # Exit a parse tree produced by qcodeParser#q_while_operation.
-    def exitQ_while_operation(self, ctx:qcodeParser.Q_while_operationContext):
-        pass
-
-
-    # Enter a parse tree produced by qcodeParser#q_while_stmt.
-    def enterQ_while_stmt(self, ctx:qcodeParser.Q_while_stmtContext):
-        pass
-
-    # Exit a parse tree produced by qcodeParser#q_while_stmt.
-    def exitQ_while_stmt(self, ctx:qcodeParser.Q_while_stmtContext):
-        pass
-
-
-    # Enter a parse tree produced by qcodeParser#q_while_stmt_item.
-    def enterQ_while_stmt_item(self, ctx:qcodeParser.Q_while_stmt_itemContext):
-        pass
-
-    # Exit a parse tree produced by qcodeParser#q_while_stmt_item.
-    def exitQ_while_stmt_item(self, ctx:qcodeParser.Q_while_stmt_itemContext):
-        pass
-
-
-    # Enter a parse tree produced by qcodeParser#q_condition.
-    def enterQ_condition(self, ctx:qcodeParser.Q_conditionContext):
-        pass
-
-    # Exit a parse tree produced by qcodeParser#q_condition.
-    def exitQ_condition(self, ctx:qcodeParser.Q_conditionContext):
-        pass
-
-
-    # Enter a parse tree produced by qcodeParser#q_operator.
-    def enterQ_operator(self, ctx:qcodeParser.Q_operatorContext):
-        pass
-
-    # Exit a parse tree produced by qcodeParser#q_operator.
-    def exitQ_operator(self, ctx:qcodeParser.Q_operatorContext):
+    # Exit a parse tree produced by QcodeParser#constant.
+    def exitConstant(self, ctx:QcodeParser.ConstantContext):
         pass
 
 

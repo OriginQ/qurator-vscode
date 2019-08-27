@@ -1651,6 +1651,7 @@ public:
         return (*this).template PushBack<StringRefType>(value, allocator);
     }
 
+
     //! Append a primitive value at the end of the array.
     /*! \tparam T Either \ref Type, \c int, \c unsigned, \c int64_t, \c uint64_t
         \param value Value of primitive type T to be appended.

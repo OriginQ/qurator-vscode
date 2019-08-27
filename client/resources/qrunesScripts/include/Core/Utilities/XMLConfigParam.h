@@ -11,49 +11,36 @@ Classes for get the shortes path of graph
 */
 #ifndef XMLCONFIGPARAM_H
 #define XMLCONFIGPARAM_H
-
-#include "TinyXML/tinyxml.h"
+#include "Core/Utilities/QPandaNamespace.h"
+#include "ThirdParty/TinyXML/tinyxml.h"
+#include "Core/QuantumCircuit/QGlobalVariable.h"
 #include <iostream>
 #include <string>
 #include <map>
-#include "QPandaNamespace.h"
+#include <vector>
+
+#define CONFIG_PATH  "./QPandaConfig.xml"
 
 QPANDA_BEGIN
-
 
 
 class XmlConfigParam
 {
 public:
-    XmlConfigParam() = delete;
-    XmlConfigParam(const std::string &filename);
+    XmlConfigParam() ;
+    bool loadFile(const std::string &filename);
+    bool getMetadataConfig(int &qubit_num, std::vector<std::vector<int>> &qubit_matrix);
+    bool getClassNameConfig(std::map<std::string, std::string> &class_names);
 
-    /*
-    Parse xml config file and metadata config path
-    param:
-        path: output metadata config file path
-    return:
-        sucess or not
-
-    Note:
-    */
-    bool getMetadataPath(std::string &path);
-
-    /*
-    Parse xml config file and get class name
-    param:
-        class_name_map: output all class name
-    return:
-        sucess or not
-
-    Note:
-    */
-    bool getClassNameConfig(std::map<std::string, std::string> &class_name_map);
-
-    virtual ~XmlConfigParam();
+    bool getQuantumCloudConfig(std::map<std::string, std::string> &cloud_config);
+    bool getQGateConfig(std::vector<std::string> &single_gates, std::vector<std::string> &double_gates);
+    bool getQGateTimeConfig(std::map<GateType, size_t> &gate_time);
+    bool getInstructionConfig(std::map<std::string, std::map<std::string, uint32_t>> &);
+    virtual ~XmlConfigParam() {};
 private:
     TiXmlDocument m_doc;
     TiXmlElement *m_root_element;
+    std::string m_filename;
 };
 QPANDA_END
 #endif // XMLCONFIGPARAM_H

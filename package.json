@@ -46,7 +46,7 @@
 					"default": {
 						"python": "3.6",
 						"pip": "9.0.0",
-						"g++":"1.0.0"
+						"g++": "1.0.0"
 					},
 					"description": "Basic Qurator dependencies required"
 				},
@@ -134,14 +134,14 @@
 		}
 	},
 	"scripts": {
-		"vscode:prepublish": "npm run compile:parser && npm run compile ",
+		"vscode:prepublish": "npm run compile:parser && npm run compile",
 		"compile:client": "tsc -p ./client/tsconfig.json",
 		"compile:server": "tsc -p ./server/tsconfig.json",
 		"compile:parser": "npm run compile:parserSettings && npm run compile:parserQcodes && npm run compile:parserPython && npm run compile:parserCpp",
-		"compile:parserSettings": "cd server/src/embedded/settings/antlr && antlr4ts -visitor setting.g4 && cd ../../../..",
-		"compile:parserQcodes": "cd server/src/embedded/qcodes/antlr && antlr4ts -visitor qcode.g4 && cd ../../../..",
-		"compile:parserPython": "cd server/src/embedded/python/antlr && antlr4ts -visitor Python3.g4 && cd ../../../..",
-		"compile:parserCpp": "cd server/src/embedded/cpp/antlr && antlr4ts -visitor CPP14.g4 && cd ../../../..",
+		"compile:parserSettings": "cd server/src/qrunesModes/embeddedModeImpl/settings/antlr && antlr4ts -visitor setting.g4 && cd ../../../../..",
+		"compile:parserQcodes": "cd server/src/qrunesModes/embeddedModeImpl/qcodes/antlr && antlr4ts -visitor qcode.g4 && cd ../../../../..",
+		"compile:parserPython": "cd server/src/qrunesModes/embeddedModeImpl/python/antlr && antlr4ts -visitor Python3.g4 && cd ../../../../..",
+		"compile:parserCpp": "cd server/src/qrunesModes/embeddedModeImpl/cpp/antlr && antlr4ts -visitor CPP14.g4 && cd ../../../../..",
 		"watch:client": "tsc -w -p ./client/tsconfig.json",
 		"watch:server": "tsc -w -p ./server/tsconfig.json",
 		"compile": "npm run compile:client && npm run compile:server",
@@ -156,6 +156,7 @@
 		"antlr4ts-cli": "^0.4.0-alpha.4"
 	},
 	"dependencies": {
-		"antlr4ts": "^0.4.1-alpha.0"
+		"antlr4ts": "^0.4.1-alpha.0",
+		"npm": "^6.9.0"
 	}
 }

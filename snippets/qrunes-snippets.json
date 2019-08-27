@@ -1,20 +1,22 @@
 {
     "stp": {
-        "prefix": "set4py",
+        "prefix": "settings4py",
         "body": [ 
             "@settings:",
             "\tlanguage = Python;",
             "\tautoimport = True;",
+            "\tcompile_only = False;",
             ""
         ],
         "description": "Code snippet for the python script imports"
     },
     "stc": {
-        "prefix": "set4cpp",
+        "prefix": "settings4cpp",
         "body": [ 
             "@settings:",
             "\tlanguage = C++;",
             "\tautoimport = True;",
+            "\tcompile_only = False;",
             ""
         ],
         "description": "Code snippet for the C++ script imports"
@@ -23,43 +25,82 @@
         "prefix": "qco",
         "body": [ 
             "@qcodes:",
-            "\tinclude 'qpanda.lib'",
+            "\t// User description for quantum algorithm and quantum functions.",
             ""
         ],
         "description": "Code snippet for the basic qcodes imports"
     },
-    "sc": {
-        "prefix": "scr",
+    "scp": {
+        "prefix": "script4py",
         "body": [ 
             "@script:",
-            "from pyqpanda import *",
-            "from pyqpanda.utils import *",
             "\t",
-            "init()",
+            "init(QuantumMachine_type.CPU_SINGLE_THREAD)",
             "\t",
             "finalize()",
             ""
         ],
         "description": "Code snippet for the basic script imports"
     },
-    "sqs": {
-        "prefix": "sqs",
+    "scc": {
+        "prefix": "script4cpp",
+        "body": [ 
+            "@script:",
+            "\t",
+            "int main() {",
+            "\tinit();",
+            "\t",
+            "\tfinalize();",
+            "}",
+            ""
+        ],
+        "description": "Code snippet for the basic script imports"
+    },
+    "sqsp": {
+        "prefix": "sqs4py",
         "body": [ 
             "@settings:",
+            "\tlanguage = Python;",
+            "\tautoimport = True;",
+            "\tcompile_only = False;",
             "\t",
             "@qcodes:",
+            "\t// User description for quantum algorithm and quantum functions.",
             "\t",
-            "@script:"
+            "@script:",
+            "init(QuantumMachine_type.CPU_SINGLE_THREAD)",
+            "\t",
+            "finalize()",
+            ""
         ],
         "description": "Code snippet for the basic qcodes imports"
     },
-    "pimport": {
-        "prefix": "pyimport",
+    "sqsc": {
+        "prefix": "sqs4cpp",
         "body": [ 
-            "from pyqpanda import *",
-            "from pyqpanda.utils import *",
+            "@settings:",
+            "\tlanguage = C++;",
+            "\tautoimport = True;",
+            "\tcompile_only = False;",
+            "\t",
+            "@qcodes:",
+            "\t// User description for quantum algorithm and quantum functions.",
+            "\t",
+            "@script:",
+            "int main() {",
+            "\tinit();",
+            "\t",
+            "\tfinalize();",
+            "}",
             ""
         ],
-        "description": "Code snippet for the pyqpanda imports"
+        "description": "Code snippet for the basic qcodes imports"
+    },
+    "quan": {
+        "prefix": "quanmac",
+        "body": [ 
+            "QuantumMachine_type.CPU_SINGLE_THREAD"
+        ],
+        "description": "Code snippet for quantum machine type"
     }
 }

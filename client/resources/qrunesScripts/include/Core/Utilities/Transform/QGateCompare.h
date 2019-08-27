@@ -4,120 +4,84 @@ Licensed under the Apache License 2.0
 
 QGateCompare.h
 Author: Wangjing
-Created in 2018-6-25
+Updated in 2019/04/09 15:05
 
-Classes for get count that QVM don't support QGates.
-
-Update@2018-8-30
-update comment
+Classes for QGateCompare.
 
 */
-
+/*! \file QGateCompare.h */
 #ifndef  QGATE_COMPARE_H_
 #define  QGATE_COMPARE_H_
 
-#pragma once
-
-#include "QuantumCircuit/QProgram.h"
+#include "Core/QuantumCircuit/QGate.h"
+#include "Core/QuantumCircuit/ControlFlow.h"
+#include "Core/QuantumCircuit/QCircuit.h"
+#include "Core/QuantumCircuit/QProgram.h"
 #include <map>
-#include "QuantumCircuit/QGlobalVariable.h"
+#include "Core/QuantumCircuit/QGlobalVariable.h"
+#include "Core/Utilities/Transform/QGateCounter.h"
+
 QPANDA_BEGIN
-/*
-get the number that QGate of QProg is not in setting instructions
+
+/**
+* @namespace QPanda
 */
-class QGateCompare {
+
+/**
+* @defgroup Utilities
+* @brief QPanda2  base  Utilities  classes and  interface
+*/
+
+/**
+* @class QGateCompare
+* @ingroup Utilities
+* @brief Qunatum Gate Compare
+*/
+class QGateCompare : public TraversalInterface
+{
 public:
-    QGateCompare();
-    virtual ~QGateCompare();
-    
-    /*
-    get the number that QGate of QProg is not in setting instructions
-    param:
-        p_prog: target QProg
-        instructions: set instructions
-    return:
-        not support number
+    QGateCompare(const std::vector<std::vector<std::string>> &);
 
-    Note:
-        None
+    /**
+    * @brief  traversal quantum program, quantum circuit, quantum while or quantum if
+    * @param[in]  _Ty& quantum program, quantum circuit, quantum while or quantum if
+    * @return     void
+    * @note
     */
-    static size_t countQGateNotSupport(AbstractQuantumProgram *p_prog,
-                                       const std::vector<std::vector<std::string>> &instructions);
+    template <typename _Ty>
+    void traversal(_Ty &node)
+    {
+        static_assert(std::is_base_of<QNode, _Ty>::value, "bad node type");
+        Traversal::traversalByType(&node, &node, this);
+    }
 
-    /*
-    get the number that QGate of QGate is not in setting instructions
-    param:
-        p_gata: target QGate
-        instructions: set instructions
-    return:
-        not support number
-
-    Note:
-        None
+    /**
+    * @brief  get unsupported gate numner
+    * @return     size_t     Unsupported QGate number
+    * @note
     */
-    static size_t countQGateNotSupport(AbstractQGateNode *p_gata,
-                                       const std::vector<std::vector<std::string>> &instructions);
-
-    /*
-    get the number that QGate of AbstractControlFlowNode is not in setting instructions
-    param:
-        p_controlflow: target AbstractControlFlowNode
-        instructions: set instructions
-    return:
-        not support number
-
-    Note:
-        None
-    */
-    static size_t countQGateNotSupport(AbstractControlFlowNode *p_controlflow,
-                                       const std::vector<std::vector<std::string>> &instructions);
-
-    /*
-    get the number that QGate of QCircuit is not in setting instructions
-    param:
-        p_circuit: target QCircuit
-        instructions: set instructions
-    return:
-        not support number
-
-    Note:
-        None
-    */
-    static size_t countQGateNotSupport(AbstractQuantumCircuit *p_circuit,
-                                       const std::vector<std::vector<std::string>> &instructions);
-
-protected:
-    /*
-    get the number that QGate of QNode is not in setting instructions
-    param:
-        p_node: target QNode
-        instructions: set instructions
-    return:
-        not support number
-
-    Note:
-        None
-    */
-    static size_t countQGateNotSupport(QNode *p_node, 
-                                       const std::vector<std::vector<std::string>> &instructions);
-
-    /*
-    get the result of the item is or not in setting instructions
-    param:
-        item: target item
-        instructions: set instructions
-    return:
-        not support number
-
-    Note:
-        None
-    */
-    static bool isItemExist(const std::string &item,
-                            const std::vector<std::vector<std::string>> &instructions);
+    size_t count();
 private:
+    virtual void execute(AbstractQGateNode * cur_node, QNode * parent_node);
+    size_t m_count;
+    std::vector<std::vector<std::string>> m_gates;
 };
 
-
+/**
+* @brief  Count quantum program unsupported gate numner
+* @param[in]  _Ty& quantum program, quantum circuit, quantum while or quantum if
+* @param[in]  const std::vector<std::vector<std::string>>&    support gates
+* @return     size_t     Unsupported QGate number
+* @note
+*/
+template <typename _Ty>
+size_t getUnSupportQGateNumber(_Ty &node, const std::vector<std::vector<std::string>> &gates)
+{
+    static_assert(std::is_base_of<QNode, _Ty>::value, "bad node type");
+    QGateCompare compare(gates);
+    compare.traversal(node);
+    return compare.count();
+}
 
 QPANDA_END
 

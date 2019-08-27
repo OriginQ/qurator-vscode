@@ -1,0 +1,48 @@
+{
+    "classes": [{
+        "name": "qvec",
+        "detail": "Vector of qubits.",
+        "documentation": "Vector of qubits.",
+        "arguments": [{
+        }],
+        "methods": [{
+                "name": "insert",
+                "type": "boolean",
+                "detail": "insert method",
+                "documentation": "insert method",
+                "arguments": [{
+                    "name": "qubits",
+                    "type": "qubits"
+                }]
+            },
+            {
+                "name": "push_back",
+                "type": "boolean",
+                "detail": "add qubits",
+                "documentation": "add qubits",
+                "arguments": [{
+                    "name": "qubits",
+                    "type": "qubits"
+                }]
+            }
+        ]
+    },
+    {
+        "name": "qgate",
+        "detail": "Quantum gate.",
+        "documentation": "Quantum gate.",
+        "arguments": [{
+        }],
+        "methods": [{
+                "name": "control",
+                "type": "boolean",
+                "detail": "set control",
+                "documentation": "set control",
+                "arguments": [{
+                    "name": "qvec",
+                    "type": "qvec"
+                }]
+            }
+        ]
+    }]
+}

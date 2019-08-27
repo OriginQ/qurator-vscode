@@ -13,14 +13,23 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-
+/*! \file QuantumMeasure.h */
 #ifndef _QUANTUM_MEASURE_H
 #define _QUANTUM_MEASURE_H
 
-#include "QuantumMachine/QubitFactory.h"
-#include "QNode.h"
-#include "ClassicalConditionInterface.h"
+#include "Core/QuantumMachine/QubitFactory.h"
+#include "Core/QuantumCircuit/QNode.h"
+#include "Core/QuantumCircuit/ClassicalConditionInterface.h"
 QPANDA_BEGIN
+/**
+* @namespace QPanda
+*/
+
+/**
+* @class AbstractQuantumMeasure
+* @brief Quantum Measure basic abstract class
+* @ingroup Core
+*/
 class AbstractQuantumMeasure
 {
 public:
@@ -29,24 +38,26 @@ public:
     virtual ~AbstractQuantumMeasure() {}
 };
 
+/**
+* @class QMeasure
+* @brief Quantum Measure  basic  class
+* @ingroup Core
+*/
 class QMeasure : public QNode, public AbstractQuantumMeasure
 {
 private:
-    AbstractQuantumMeasure * m_pQuantumMeasure;
-    qmap_size_t m_stPosition;
-    QMeasure();
-
+    std::shared_ptr<AbstractQuantumMeasure> m_measure;
 public:
     QMeasure(const QMeasure &);
     QMeasure(Qubit *, CBit *);
+    std::shared_ptr<QNode> getImplementationPtr();
     ~QMeasure();
     Qubit * getQuBit() const;
     CBit * getCBit()const;
-
     NodeType getNodeType() const;
-    qmap_size_t getPosition() const;
 private:
-    void setPosition(qmap_size_t) {};
+    virtual void execute(QPUImpl *, QuantumGateParam *) {};
+    QMeasure();
 };
 
 typedef AbstractQuantumMeasure * (*CreateMeasure)(Qubit *, CBit *);
@@ -82,32 +93,55 @@ public:
     QuantumMeasureRegisterAction g_measureCreatorRegister##className(                        \
         #className,(CreateMeasure)objectCreator##className)
 
+/**
+* @class  OriginMeasure
+* @brief  Qrigin quantum measure basic class
+*/
 class OriginMeasure : public QNode ,public AbstractQuantumMeasure
 {
 public:
     OriginMeasure (Qubit *, CBit *);
     ~OriginMeasure() {};
     
+    /**
+    * @brief  Get measure node qubit address
+    * @return    QPanda::Qubit*  QuBit address
+    */
     Qubit * getQuBit() const;
+    /**
+    * @brief  Get measure node cbit address
+    * @return    QPanda::CBit*  cBit address
+    */
     CBit * getCBit()const;
-
+    /**
+    * @brief  Get current node type
+    * @return     NodeType  current node type
+    * @see  NodeType
+    */
     NodeType getNodeType() const;
-    qmap_size_t getPosition() const;
-    void setPosition(qmap_size_t stPositio);
+    virtual void execute(QPUImpl *, QuantumGateParam *) ;
 private:
     OriginMeasure();
     OriginMeasure(OriginMeasure &);
-    NodeType m_iNodeType;
-    Qubit * m_pTargetQubit;
-    CBit * m_pCBit;
-    qmap_size_t m_stPosition;
+    std::shared_ptr<QNode> getImplementationPtr()
+    {
+        QCERR("Can't use this function");
+        throw std::runtime_error("Can't use this function");
+    };
+    NodeType m_node_type;
+    Qubit * m_target_qubit;
+    CBit * m_target_cbit;
      
 };
 
-QMeasure Measure(Qubit * targetQuBit, ClassicalCondition );
-
-
-
+/**
+* @brief  QPanda2 basic interface for creating a quantum measure node
+* @param[in]  Qubit*   qubit address
+* @param[in]  ClassicalCondition  cbit
+* @return     QPanda::QMeasure  quantum measure node
+* @ingroup Core
+*/
+QMeasure Measure(Qubit * , ClassicalCondition );
 QPANDA_END
 
 #endif // !_QUANTUM_MEASURE_H

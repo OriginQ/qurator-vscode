@@ -11,18 +11,24 @@ Classes for ControlFlow
 Update@2018-8-30
   Update by code specification
 */
-
+/*! \file ControlFlow.h */
 
 #ifndef  _CONTROL_FLOW_H
 #define  _CONTROL_FLOW_H
-#include "QNode.h"
-#include "ClassicalConditionInterface.h"
+#include "Core/QuantumCircuit/QNode.h"
+#include "Core/QuantumCircuit/ClassicalConditionInterface.h"
+#include "Core/QuantumCircuit/QProgram.h"
 
 QPANDA_BEGIN
+/**
+* @namespace QPanda
+*/
 
 /**
- * @brief Superclass for QIfProg/QWhileProg
- */
+* @class AbstractControlFlowNode
+* @brief Superclass for QIfProg/QWhileProg
+* @ingroup Core
+*/
 class AbstractControlFlowNode
 {
 public:    
@@ -40,32 +46,33 @@ public:
 
     /**
      * @brief Set the True branch 
-     * @param node True branch node
+     * @param Node True branch node
      */
-    virtual void setTrueBranch(QNode * node) = 0;
+    virtual void setTrueBranch(QProg node) = 0;
 
     /**
      * @brief Set the False Branch object
-     * @param node False branch node
+     * @param Node False branch node
      */
-    virtual void setFalseBranch(QNode * node) = 0;
+    virtual void setFalseBranch(QProg node) = 0;
 
     /**
-     * @brief get classical expr
+     * @brief Get classical expr
      * @return ClassicalCondition ptr 
      */
     virtual ClassicalCondition * getCExpr() = 0;
     virtual ~AbstractControlFlowNode() {}
 };
 
-/*
+/**
+* @class QIfProg
 * @brief Proxy class of quantum if program
+* @ingroup Core
 */
 class QIfProg : public QNode, public AbstractControlFlowNode
 {
 private:
-    AbstractControlFlowNode * m_control_flow;
-    qmap_size_t m_position;
+    std::shared_ptr<AbstractControlFlowNode> m_control_flow;
     QIfProg();
 public:
     ~QIfProg();
@@ -81,14 +88,14 @@ public:
      * @param true_node true branch node
      * @param false_node false branch node
      */
-    QIfProg(ClassicalCondition& classical_condition, QNode *true_node, QNode *false_node);
+    QIfProg(ClassicalCondition classical_condition, QProg true_node, QProg false_node);
 
     /**
      * @brief Construct a new QIfProg object
      * @param classical_condition this QIfProg classical condition
      * @param node true branch node
      */   
-    QIfProg(ClassicalCondition &classical_condition, QNode * node);
+    QIfProg(ClassicalCondition classical_condition, QProg node);
     
     /**
      * @brief Get the current node type
@@ -109,98 +116,58 @@ public:
     virtual QNode* getFalseBranch() const;
 
     /**
-     * @brief Get this node position in global QNode map
-     * @return position 
-     */
-    virtual qmap_size_t getPosition() const;
-
-    /**
      * @brief Get classical condition
      * @return classical condition ptr 
      */
     virtual ClassicalCondition *getCExpr();
 
+    std::shared_ptr<QNode> getImplementationPtr();
+
 private:
-    virtual void setPosition(qmap_size_t) {};
-    virtual void setTrueBranch(QNode*) {};
-    virtual void setFalseBranch(QNode*) {};
+    virtual void setTrueBranch(QProg ) {};
+    virtual void setFalseBranch(QProg ) {};
+    virtual void execute(QPUImpl *, QuantumGateParam *) {};
 };
 
 typedef AbstractControlFlowNode * (*CreateQIfTrueFalse_cb)(ClassicalCondition &, QNode *, QNode *);
 typedef AbstractControlFlowNode * (*CreateQIfTrueOnly_cb)(ClassicalCondition &, QNode *);
 
-/*
-* @brief Factory for generating QIf.
-*/
+
 class QIfFactory
 {
 public:
-    /**
-     * @brief Regist QIf class
-     * 
-     * @param name class name
-     * @param method create qif true false callback
-     */
 
     void registClass(std::string name, CreateQIfTrueFalse_cb method);
 
-   /**
-    * @brief Regist QIf class
-    * @param name class name
-    * @param method create qif true only callback
-    */  
     void registClass(std::string name, CreateQIfTrueOnly_cb method);
 
-    /**
-     * @brief Get QIf class
-     * @param class_name AbstractControlFlowNode Implementation class name
-     * @param classical_condition classical condition
-     * @param true_node true branch node
-     * @param false_node false branch node
-     * @return AbstractControlFlowNode ptr
-     */
     AbstractControlFlowNode* getQIf(std::string &class_name,
         ClassicalCondition &classical_condition,
         QNode *true_node,
         QNode *false_node);
 
-    /**
-     * @brief Get QIf class
-     * @param name AbstractControlFlowNode Implementation class name
-     * @param classical_cond classical condition
-     * @param node Ture branch node ptr
-     * @return AbstractControlFlowNode ptr
-     */
     AbstractControlFlowNode * getQIf(std::string & name, 
                                      ClassicalCondition & classical_cond,
                                      QNode * node);
-    
-    /**
-     * @brief Get the QIfFactory object
-     * @return QIfFactory ref
-     */
+
     static QIfFactory & getInstance()
     {
         static QIfFactory  instance;
         return instance;
     }
 private:
-    /**
-     * @brief A collection of constructors that create only true branch qif 
-     */
+
     std::map<std::string, CreateQIfTrueOnly_cb> m_qif_true_only_map;
 
-    /**
-     * @brief A collection of constructors that reate a qif that contains the true and false branches
-     */
     std::map<std::string, CreateQIfTrueFalse_cb> m_qif_true_false_map;
     QIfFactory() {};
 
 };
 
 /**
- * @brief QIf program register action
- * Provide QIfFactory class registration interface to the outside
+* @class QIfRegisterAction
+* @brief QIf program register action
+* @note Provide QIfFactory class registration interface for the outside
  */
 class QIfRegisterAction {
 public:
@@ -228,11 +195,11 @@ public:
 };
 
 #define QIF_REGISTER(className)                                             \
-AbstractControlFlowNode* QifSingleCreator##className(ClassicalCondition& classical_condition, QNode* true_node)       \
+AbstractControlFlowNode* QifSingleCreator##className(ClassicalCondition classical_condition, QProg true_node)       \
 {      \
     return new className(classical_condition, true_node);                    \
 }                                                                   \
-AbstractControlFlowNode* QifDoubleCreator##className(ClassicalCondition& classical_condition, QNode* true_node, QNode* false_node) \
+AbstractControlFlowNode* QifDoubleCreator##className(ClassicalCondition classical_condition, QProg true_node, QProg false_node) \
 {      \
     return new className(classical_condition, true_node, false_node);                    \
 }                                                                   \
@@ -242,148 +209,82 @@ QIfRegisterAction _G_qif_creator_single_register##className(                    
     #className,(CreateQIfTrueOnly_cb)QifSingleCreator##className)
 
 
-/**
- * @brief Qif implementation class
- */
+
 class OriginQIf : public QNode, public AbstractControlFlowNode
 {
 private:
     ClassicalCondition  m_classical_condition;
-    Item * m_true_item;
-    Item * m_false_item;
-    NodeType m_node_type;
-    qmap_size_t m_position;
+    Item * m_true_item {nullptr};
+    Item * m_false_item {nullptr};
+    NodeType m_node_type {QIF_START_NODE};
+    std::shared_ptr<QNode> getImplementationPtr()
+    {
+        QCERR("Can't use this function");
+        throw std::runtime_error("Can't use this function");
+    };
 public:
     ~OriginQIf();
     
-    /**
-     * @brief OriginQIf constructor
-     * 
-     * @param classical_condition OriginQIf classical condition
-     * @param true_node true branch node
-     * @param false_node false branch node
-     */
-    OriginQIf(ClassicalCondition & classical_condition, QNode *true_node, QNode *false_node);
+    OriginQIf(ClassicalCondition classical_condition, QProg true_node, QProg false_node);
 
-    /*
-    OriginQIf constructor
-    param :
-    classical_condition : OriginQIf classical condition
-    node : true branch node
-    return :
-    Note:
-    */
-    OriginQIf(ClassicalCondition & classical_condition, QNode * node);
+    OriginQIf(ClassicalCondition classical_condition, QProg node);
 
-    /*
-    Get the current node type
-    param :
-    return : node type
-    Note:
-    */
     virtual NodeType getNodeType() const;
 
-    /*
-    Get true branch
-    param :
-    return : branch node
-    Note:
-    */
     virtual QNode* getTrueBranch() const;
 
-    /*
-    Get false branch
-    param :
-    return : branch node
-    Note:
-    */
     virtual QNode* getFalseBranch() const;
 
-    /*
-    Get this node position in global QNode map
-    param :
-    return : position
-    Note:
-    */
-    virtual qmap_size_t getPosition() const;
+    virtual void setTrueBranch(QProg node);
 
-    /*
-    Set true branch
-    param :
-    node : true branch node
-    return :
-    Note:
-    */
-    virtual void setTrueBranch(QNode * node);
+    virtual void setFalseBranch(QProg node);
 
-    /*
-    Set false branch
-    param :
-    node : false branch node
-    return :
-    Note:
-    */
-    virtual void setFalseBranch(QNode * node);
-
-    /*
-    Set position
-    param :
-    position : this node position in global QNode map
-    return :
-    Note:
-    */
-    virtual void setPosition(qmap_size_t position);
-
-    /*
-    Get classical condition
-    param :
-    return : classical condition
-    Note:
-    */
     virtual ClassicalCondition *getCExpr();
+
+    virtual void execute(QPUImpl *, QuantumGateParam *);
 };
 
-/*
-Create qif prog
-param :
-classical_condition : OriginQIf classical condition
-true_node : true branch node
-return : QIfProg
-Note:
+/**
+* @brief  QPanda2 basic interface for creating a QIf program
+* @ingroup  Core
+* @param[in]  ClassicalCondition  Cbit
+* @param[in]  QNode* QIf true node
+* @return     QPanda::QIfProg  QIf program
 */
 QIfProg CreateIfProg(
     ClassicalCondition classical_condition,
-    QNode *true_node);
+    QProg true_node);
 
-/*
-Create qif prog
-param :
-classical_condition : OriginQIf classical condition
-true_node : true branch node
-false_node : false branch node
-return : QIfProg
-Note:
+/**
+* @brief  QPanda2 basic interface for creating a QIf program
+* @ingroup  Core
+* @param[in]  ClassicalCondition  Cbit
+* @param[in]  QNode* QIf true node
+* @param[in]  QNode* QIf false node
+* @return     QPanda::QIfProg  QIf program
 */
 QIfProg CreateIfProg(
     ClassicalCondition classical_condition,
-    QNode *true_node,
-    QNode *false_node);
+    QProg true_node,
+    QProg false_node);
 
-/*
-*  QWhileProg:  Proxy class of quantum while program
+/**
+* @class QWhileProg
+* @brief Proxy class of quantum while program
+* @ingroup Core
 */
 class QWhileProg : public QNode, public AbstractControlFlowNode
 {
 private:
-    AbstractControlFlowNode * m_control_flow;
-    qmap_size_t m_position;
+    std::shared_ptr<AbstractControlFlowNode> m_control_flow;
 
     QWhileProg();
 public:
     ~QWhileProg();
     QWhileProg(const QWhileProg &);
-    QWhileProg(ClassicalCondition &, QNode *);
+    QWhileProg(ClassicalCondition , QProg);
 
+    std::shared_ptr<QNode> getImplementationPtr();
     /*
     Get the current node type
     param :
@@ -409,14 +310,6 @@ public:
     virtual QNode* getFalseBranch() const;
 
     /*
-    Get this node position in global QNode map
-    param :
-    return : position
-    Note:
-    */
-    virtual qmap_size_t getPosition() const;
-
-    /*
     Get classical condition
     param :
     return : classical condition
@@ -425,99 +318,46 @@ public:
     virtual ClassicalCondition *getCExpr();
 
 private:
-    virtual void setPosition(qmap_size_t) {};
-    virtual void setTrueBranch(QNode*) {};
-    virtual void setFalseBranch(QNode*) {};
+    virtual void setTrueBranch(QProg ) {};
+    virtual void setFalseBranch(QProg ) {};
+    virtual void execute(QPUImpl *, QuantumGateParam *) {};
 };
 
-/*
-*  OriginQWhile: QWhile implementation class
-*/
+
 class OriginQWhile :public QNode, public AbstractControlFlowNode
 {
 private:
-    NodeType m_node_type;
+    NodeType m_node_type {WHILE_START_NODE};
     ClassicalCondition  m_classical_condition;
-    Item * m_true_item;
-    qmap_size_t m_position;
+    Item * m_true_item {nullptr};
 
     OriginQWhile();
+    std::shared_ptr<QNode> getImplementationPtr()
+    {
+        QCERR("Can't use this function");
+        throw std::runtime_error("Can't use this function");
+    };
 public:
     ~OriginQWhile();
-    OriginQWhile(ClassicalCondition & ccCon, QNode * node);
-    /*
-    Get the current node type
-    param :
-    return : node type
-    Note:
-    */
+    OriginQWhile(ClassicalCondition ccCon, QProg node);
+
     virtual NodeType getNodeType() const;
 
-    /*
-    Get true branch
-    param :
-    return : branch node
-    Note:
-    */
     virtual QNode* getTrueBranch() const;
 
-    /*
-    Get false branch
-    param :
-    return : branch node
-    Note:
-    */
     virtual QNode* getFalseBranch() const;
 
-    /*
-    Get this node position in global QNode map
-    param :
-    return : position
-    Note:
-    */
-    virtual qmap_size_t getPosition() const;
+    virtual void setTrueBranch(QProg node);
 
-    /*
-    Set true branch
-    param :
-    node : true branch node
-    return :
-    Note:
-    */
-    virtual void setTrueBranch(QNode * node);
+    virtual void setFalseBranch(QProg node) {};
 
-    /*
-    Set false branch
-    param :
-    node : false branch node
-    return :
-    Note:
-    */
-    virtual void setFalseBranch(QNode * node) {};
-
-    /*
-    Set position
-    param :
-    position : this node position in global QNode map
-    return :
-    Note:
-    */
-    virtual void setPosition(qmap_size_t position);
-
-    /*
-    Get classical condition
-    param :
-    return : classical condition
-    Note:
-    */
     virtual ClassicalCondition *getCExpr();
+
+    virtual void execute(QPUImpl *, QuantumGateParam *);
 };
 
 typedef AbstractControlFlowNode * (*CreateQWhile_cb)(ClassicalCondition &, QNode *);
 
-/*
-* QWhileFactory: Factory for generating QWhile.
-*/
 class QWhileFactory
 {
 public:
@@ -543,23 +383,23 @@ public:
 };
 
 #define QWHILE_REGISTER(className)                                             \
-AbstractControlFlowNode* QWhileCreator##className(ClassicalCondition& classical_condition, QNode* true_node) \
+AbstractControlFlowNode* QWhileCreator##className(ClassicalCondition &classical_condition, QProg true_node) \
 {      \
     return new className(classical_condition, true_node);                    \
 }                                                                   \
 QWhileRegisterAction _G_qwhile_creator_register##className(                        \
     #className,(CreateQWhile_cb)QWhileCreator##className)
 
-/*
-Create qwhile prog
-param :
-classical_condition : OriginQIf classical condition
-true_node : true branch node
-return : QIfProg
-Note:
+/**
+* @brief  QPanda2 basic interface for creating a QWhile program
+* @ingroup  Core
+* @param[in]  ClassicalCondition  Cbit
+* @param[in]  QNode* QWhile true node
+* @return     QPanda::QWhileProg  QWhile program
 */
+
 QWhileProg CreateWhileProg(
     ClassicalCondition ,
-    QNode* trueNode);
+    QProg trueNode);
 QPANDA_END
 #endif // ! _CONTROL_FLOW_H

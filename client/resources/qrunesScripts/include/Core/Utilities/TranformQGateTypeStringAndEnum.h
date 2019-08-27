@@ -15,41 +15,27 @@ Classes for tranform gate type enum and std::string
 #include <iostream>
 #include <map>
 #include <string>
-#include "QuantumCircuit/QGlobalVariable.h"
-#include "QPandaNamespace.h"
+#include "Core/QuantumCircuit/QGlobalVariable.h"
+#include "Core/Utilities/QPandaNamespace.h"
 
 QPANDA_BEGIN
 
 /*
 Classes for tranform gate type enum and std::string
 */
-class QGateTypeEnumToString
+
+class TransformQGateType
 {
 public:
-    static QGateTypeEnumToString &getInstance();
-    ~QGateTypeEnumToString();
-    std::string operator [](int type);
-protected:
-    QGateTypeEnumToString();
-    QGateTypeEnumToString(const QGateTypeEnumToString &);
-    QGateTypeEnumToString &operator=(const QGateTypeEnumToString &);
+    static TransformQGateType &getInstance();
+    ~TransformQGateType() {};
+    std::string operator [](GateType);
+    GateType operator [](std::string gate_name);
 private:
-    std::map<int, std::string> m_QGate_type_map;
-};
-
-
-class QGateTypeStringToEnum
-{
-public:
-    static QGateTypeStringToEnum &getInstance();
-    ~QGateTypeStringToEnum();
-    int operator [](std::string gate_name);
-protected:
-    QGateTypeStringToEnum();
-    QGateTypeStringToEnum(const QGateTypeStringToEnum &);
-    QGateTypeStringToEnum &operator=(const QGateTypeEnumToString &);
-private:
-    std::map<std::string, int> m_QGate_type_map;
+    std::map<std::string, GateType> m_qgate_type_map;
+    TransformQGateType &operator=(const TransformQGateType &);
+    TransformQGateType();
+    TransformQGateType(const TransformQGateType &);
 };
 
 

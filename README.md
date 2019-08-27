@@ -3,7 +3,8 @@
 > A general purpose quantum programming language.
 
 A Visual Studio Code extension with support for QRunes language. It provides some useful commands to make easier launching jobs and Intuitive display results among others.
-    <img style="margin:0 auto;display:block;width:60%;"  src="https://raw.githubusercontent.com/OriginQ/qurator-vscode/master/docs/images/execute-sample.gif" alt="Example of running Qurator VSCode Extension" />
+
+![Qurator VSCode Extension](https://raw.githubusercontent.com/OriginQ/qurator-vscode/master/docs/images/execute-sample.gif "Example of running Qurator VSCode Extension")
 
 ## Requirements
 
@@ -11,18 +12,14 @@ A Visual Studio Code extension with support for QRunes language. It provides som
 2. Pip(version 10.1 or later) 
 3. [Microsoft Visual C++ Redistributable](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads) on Windows.
 4. [MinGw-w64 for Windows 64](https://sourceforge.net/projects/mingw-w64/files/latest/download)
+5. For Ubuntu, should execute command:   
+    apt-get install libpython3.6-dev
 
 ## Install
 
 1. Press Ctrl+Shift+X to open the Extensions tab.
 2. Type qurator-vscode to find the extension.
-3. Click the Install button, then the Enable button.
-
-OR
-
-1. Press Ctrl+P to open the Quick Open dialog.
-2. Select Install Extension and Type qurator-vscode to find the extension.
-3. Click the Install button, then the Enable button.
+3. Click the Install button.
 
 Now, when encoding with Qurator (qrunes) files, the Qurator VSCode extension will be available.
 
@@ -42,6 +39,7 @@ Download the latest release of the extension from and follow the [instructions t
 * Hovering.
 * Highlight.
 * Snippets.
+* Jump to Definition.
 * Show the results with multiple charts.
 * Debug. Transform QRunes to Python or C++, then debug via these host language.
 * QRunes error detection.
@@ -54,6 +52,9 @@ Command | Description
 --- | ---
 ```qurator-vscode: Check Qurator VSCode Extension dependencies``` | Check that the required dependencies are properly installed.
 ```qurator-vscode: Run this QRunes``` | Executes the code at the current editor tab.
+
+## Qurator User Manual
+User Manual : https://qurator-vscode.readthedocs.io/zh_CN/latest/
 
 ## Contact Us
 

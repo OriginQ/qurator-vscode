@@ -13,14 +13,24 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-
+/*! \file OriginQuantumMachine.h */
 #ifndef ORIGIN_QUANTUM_MACHINE_H
 #define ORIGIN_QUANTUM_MACHINE_H
-#include "Factory.h"
-#include "QuantumMachineInterface.h"
-#include "VirtualQuantumProcessor/QuantumGates.h"
-#include "VirtualQuantumProcessor/QuantumGateParameter.h"
+#include "Core/QuantumMachine/Factory.h"
+#include "Core/QuantumMachine/QuantumMachineInterface.h"
+#include "Core/VirtualQuantumProcessor/QPUImpl.h"
+#include "Core/VirtualQuantumProcessor/QuantumGateParameter.h"
+#include "Core/Utilities/QPandaException.h"
+#include "Core/VirtualQuantumProcessor/RandomEngine/RandomEngine.h"
 USING_QPANDA
+/**
+* @namespace QPanda
+*/
+
+/**
+* @defgroup QuantumMachine
+* @brief    QPanda2 quantum virtual machine
+*/
 
 class OriginPhysicalQubit : public PhysicalQubit
 {
@@ -45,6 +55,11 @@ public:
 
     inline PhysicalQubit* getPhysicalQubitPtr()
     {
+        if (nullptr == ptPhysicalQubit)
+        {
+            QCERR("ptPhysicalQubit is nullptr");
+            throw std::runtime_error("ptPhysicalQubit is nullptr");
+        }
         return ptPhysicalQubit;
     }
 
@@ -67,10 +82,12 @@ public:
     size_t getMaxQubit() const;
     size_t getIdleQubit() const;
 
-    Qubit* Allocate_Qubit();
-    Qubit* Allocate_Qubit(size_t);
+    Qubit* allocateQubit();
+    Qubit* allocateQubitThroughPhyAddress(size_t);
+    Qubit* allocateQubitThroughVirAddress(size_t qubit_num); // allocate and return a qubit
     void Free_Qubit(Qubit*);
     size_t getPhysicalQubitAddr(Qubit*);
+    size_t getVirtualQubitAddress(Qubit*) const;
     ~OriginQubitPool();
 };
 
@@ -145,58 +162,102 @@ public:
     }
 };
 
-class OriginQVM : public QuantumMachine
+class QVM : public QuantumMachine
 {
-private:
+protected:
+	RandomEngine* random_engine;
     QubitPool * _Qubit_Pool = nullptr;
     CMem * _CMem = nullptr;
-    qmap_size_t _QProgram = -1;
     QResult* _QResult = nullptr;
     QMachineStatus* _QMachineStatus = nullptr;
-    QuantumGateParam * _pParam;
-    QuantumGates     * _pGates;
-    struct Configuration
-    {
-        size_t maxQubit=25;
-        size_t maxCMem=256;
-    };
+    QPUImpl     * _pGates = nullptr;
     Configuration _Config;
-
+    virtual void run(QProg&);
+    std::string _ResultToBinaryString(std::vector<ClassicalCondition>& vCBit);
+    virtual void _start();
+    QVM() {
+        _Config.maxQubit = 29;
+        _Config.maxCMem = 256;
+    }
+    void _ptrIsNull(void * ptr, std::string name);
+    virtual ~QVM() {}
+    virtual void init() {}
 public:
-    OriginQVM() {}
-    bool init(QuantumMachine_type type = CPU);
-    Qubit* Allocate_Qubit();
-    Qubit* Allocate_Qubit(size_t qubit_num);
-    QVec Allocate_Qubits(size_t qubit_count);
-    ClassicalCondition Allocate_CBit();
-    std::vector<ClassicalCondition> Allocate_CBits(size_t cbit_count);
-    ClassicalCondition Allocate_CBit(size_t stCbitNum);
-    void Free_Qubit(Qubit*);
-    void Free_Qubits(QVec&); //free a list of qubits
-    void Free_CBit(ClassicalCondition &);
-    void Free_CBits(std::vector<ClassicalCondition>&);
-    void load(QProg &);
-    void append(QProg&);
-    void run();
-    QMachineStatus* getStatus() const;
-    QResult* getResult();
-    void finalize();
-    size_t getAllocateQubit();
-    size_t getAllocateCMem();
-    std::map<std::string, bool> getResultMap();
+    virtual void setConfig(const Configuration &config);
+    virtual Qubit* allocateQubit();
+    virtual Qubit* allocateQubitThroughPhyAddress(size_t qubit_num);
+    virtual Qubit* allocateQubitThroughVirAddress(size_t qubit_num); // allocate and return a qubit
+    virtual QVec allocateQubits(size_t qubit_count);
+    virtual QMachineStatus* getStatus() const;
+    virtual QResult* getResult();
+    virtual std::map<std::string, bool> getResultMap();
+    virtual void finalize();
+    virtual size_t getAllocateQubit();
+    virtual size_t getAllocateCMem();
+    virtual void Free_Qubit(Qubit*);
+    virtual void Free_Qubits(QVec&); //free a list of qubits
+    virtual void Free_CBit(ClassicalCondition &);
+    virtual void Free_CBits(std::vector<ClassicalCondition>&);
+    virtual ClassicalCondition allocateCBit();
+    virtual std::vector<ClassicalCondition> allocateCBits(size_t cbit_count);
+    virtual ClassicalCondition allocateCBit(size_t stCbitNum);
+    virtual std::map<std::string, bool> directlyRun(QProg & qProg);
+    virtual std::map<std::string, size_t> runWithConfiguration(QProg &, std::vector<ClassicalCondition> &, rapidjson::Document &);
+    virtual std::map<GateType, size_t> getGateTimeMap() const;
+    virtual QStat getQState() const;
+    virtual size_t getVirtualQubitAddress(Qubit *) const;
+    virtual bool swapQubitPhysicalAddress(Qubit *, Qubit*);
+	virtual void set_random_engine(RandomEngine* rng);
+};
+
+
+class IdealQVM : public QVM, public IdealMachineInterface
+{
+public:
     std::vector<std::pair<size_t, double>> PMeasure(QVec qubit_vector, int select_max);
     std::vector<double> PMeasure_no_index(QVec qubit_vector);
-    std::map<std::string, bool> directlyRun(QProg & qProg);
     std::vector<std::pair<size_t, double>> getProbTupleList(QVec , int);
     std::vector<double> getProbList(QVec , int);
     std::map<std::string, double> getProbDict(QVec , int);
     std::vector<std::pair<size_t, double>> probRunTupleList(QProg &, QVec , int);
     std::vector<double> probRunList(QProg &, QVec , int);
     std::map<std::string, double> probRunDict(QProg &, QVec , int);
-    std::string ResultToBinaryString(std::vector<ClassicalCondition>& vCBit);
-    std::map<std::string, size_t> runWithConfiguration(QProg &, std::vector<ClassicalCondition> &, int);
     std::map<std::string, size_t> quickMeasure(QVec , size_t);
-    virtual std::map<int, size_t> getGateTimeMap() const;
+    QStat getQStat();
+};
+
+class CPUQVM : public IdealQVM {
+public:
+	CPUQVM() {}
+	void init();
+};
+
+class GPUQVM : public IdealQVM
+{
+public:
+    GPUQVM() {}
+    void init();
+};
+
+class CPUSingleThreadQVM : public IdealQVM
+{
+public:
+    CPUSingleThreadQVM() { }
+    void init();
+};
+
+class NoiseQVM : public QVM
+{
+private:
+    std::vector<std::vector<std::string>> m_gates_matrix;
+    std::vector<std::vector<std::string>> m_valid_gates_matrix;
+    void _getValidGatesMatrix();
+    void run(QProg&);
+    void initGates(rapidjson::Document &);
+public:
+    NoiseQVM();
+    void init();
+    void init(rapidjson::Document &);
 };
 
 #endif
