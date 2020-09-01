@@ -106,7 +106,7 @@ htmlhelp_basename = 'qurator_tutorialdoc'
 
 # -- Options for LaTeX output ------------------------------------------------
 
-#latex_elements = {
+latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
     #
     # 'papersize': 'letterpaper',
@@ -122,15 +122,15 @@ htmlhelp_basename = 'qurator_tutorialdoc'
     # Latex figure (float) alignment
     #
     # 'figure_align': 'htbp',
-#}
+}
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
-# latex_documents = [
-#    (master_doc, 'qurator_tutorial.tex', 'qurator\\_tutorial Documentation',
-#     'www.originqc.com', 'manual'),
-#]
+latex_documents = [
+    (master_doc, 'qurator_tutorial.tex', 'qurator\\_tutorial Documentation',
+     'www.originqc.com', 'manual'),
+]
 
 
 # -- Options for manual page output ------------------------------------------
